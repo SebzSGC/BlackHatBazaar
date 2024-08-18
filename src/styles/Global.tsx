@@ -13,8 +13,6 @@ const globalStyles = StyleSheet.create({
     borderRadius: 5,
     borderColor: '#FFF',
     borderWidth: 1,
-    flex: 1,
-    alignItems: 'center',
   },
   retroButtonText: {
     color: '#FFF',

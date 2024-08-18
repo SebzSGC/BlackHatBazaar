@@ -2,23 +2,20 @@ import React from 'react'
 import {
   View,
   Text,
-  TouchableOpacity,
   Modal,
   GestureResponderEvent,
+  StyleSheet,
 } from 'react-native'
 import globalStyles from '../styles/Global'
+import RetroButton from './RetroButton'
 
-interface ModalConfirmProps {
+interface RetroModalProps {
   visible: boolean
   title: string
   onClose: (event?: GestureResponderEvent) => void
 }
 
-const RetroModal: React.FC<ModalConfirmProps> = ({
-  visible,
-  onClose,
-  title,
-}) => {
+const RetroModal: React.FC<RetroModalProps> = ({ visible, onClose, title }) => {
   return (
     <Modal
       animationType="fade"
@@ -35,18 +32,16 @@ const RetroModal: React.FC<ModalConfirmProps> = ({
           <View style={globalStyles.contentContainer}>
             <Text style={globalStyles.retroTitle}>{title}</Text>
             <View style={[globalStyles.retroButtonContainer]}>
-              <TouchableOpacity
-                style={globalStyles.retroButton}
-                onPress={() => console.log('NO pressed')}
-              >
-                <Text style={[globalStyles.retroButtonText]}>SI</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={globalStyles.retroButton}
+              <RetroButton
+                title="SI"
+                onPress={() => console.log('SI pressed')}
+                style={styles.buttonPosition}
+              />
+              <RetroButton
+                title="NO"
                 onPress={onClose}
-              >
-                <Text style={globalStyles.retroButtonText}>NO</Text>
-              </TouchableOpacity>
+                style={styles.buttonPosition}
+              />
             </View>
           </View>
         </View>
@@ -54,5 +49,12 @@ const RetroModal: React.FC<ModalConfirmProps> = ({
     </Modal>
   )
 }
+
+const styles = StyleSheet.create({
+  buttonPosition: {
+    flex: 1,
+    alignItems: 'center',
+  },
+})
 
 export default RetroModal
