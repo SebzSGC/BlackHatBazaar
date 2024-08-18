@@ -14,6 +14,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-BlackHatBazaar-BlackHatBazaarTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-BlackHatBazaar-BlackHatBazaarTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		B9EF634D31E1483F86DEDF39 /* HACKED.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8CA3E61F26848389E167799 /* HACKED.ttf */; };
+		2EDA3B9E6E5241E2B632B80D /* Jersey10-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4AE110237F2B409482BCE769 /* Jersey10-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BlackHatBazaar/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-BlackHatBazaar-BlackHatBazaarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackHatBazaar-BlackHatBazaarTests.release.xcconfig"; path = "Target Support Files/Pods-BlackHatBazaar-BlackHatBazaarTests/Pods-BlackHatBazaar-BlackHatBazaarTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F8CA3E61F26848389E167799 /* HACKED.ttf */ = {isa = PBXFileReference; name = "HACKED.ttf"; path = "../assets/fonts/HACKED.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4AE110237F2B409482BCE769 /* Jersey10-Regular.ttf */ = {isa = PBXFileReference; name = "Jersey10-Regular.ttf"; path = "../assets/fonts/Jersey10-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				249B265AF55C423980422F58 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -149,6 +154,16 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		249B265AF55C423980422F58 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				F8CA3E61F26848389E167799 /* HACKED.ttf */,
+				4AE110237F2B409482BCE769 /* Jersey10-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -245,6 +260,8 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				B9EF634D31E1483F86DEDF39 /* HACKED.ttf in Resources */,
+				2EDA3B9E6E5241E2B632B80D /* Jersey10-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

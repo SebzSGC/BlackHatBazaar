@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/HACKED.ttf",
+      "sha1": "9e3d7fa7f872de387830bb504c849a521e501dd6"
+    },
+    {
+      "path": "assets/fonts/Jersey10-Regular.ttf",
+      "sha1": "b58b2e448cec057ac0911e15fe394c6f0b02beac"
+    }
+  ]
+}
