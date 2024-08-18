@@ -4,19 +4,23 @@ import {
   Text,
   Modal,
   GestureResponderEvent,
-  StyleSheet,
+  TouchableOpacity,
 } from 'react-native'
 import globalStyles from '../styles/Global'
-import RetroButton from './RetroButton'
 
-interface RetroModalProps {
+interface RetroInfoModalProps {
   visible: boolean
-  withButtons?: boolean
   title: string
+  description: string
   onClose: (event?: GestureResponderEvent) => void
 }
 
-const RetroModal: React.FC<RetroModalProps> = ({ visible, onClose, title }) => {
+const RetroInfoModal: React.FC<RetroInfoModalProps> = ({
+  visible,
+  onClose,
+  title,
+  description,
+}) => {
   return (
     <Modal
       animationType="fade"
@@ -26,23 +30,20 @@ const RetroModal: React.FC<RetroModalProps> = ({ visible, onClose, title }) => {
     >
       <View style={globalStyles.modalBackground}>
         <View style={globalStyles.retroContainer}>
-          {/* Mini sub barra */}
-          <View style={globalStyles.subBar}>
+          {/* Mini sub barra con X para cerrar */}
+          <View style={globalStyles.subBarWithClose}>
             <Text style={globalStyles.subBarText}>BlackHatBazaar</Text>
+            <TouchableOpacity
+              onPress={onClose}
+              style={globalStyles.closeButton}
+            >
+              <Text style={globalStyles.closeButtonText}>X</Text>
+            </TouchableOpacity>
           </View>
           <View style={globalStyles.contentContainer}>
             <Text style={globalStyles.retroTitle}>{title}</Text>
             <View style={[globalStyles.retroButtonContainer]}>
-              <RetroButton
-                title="SI"
-                onPress={() => console.log('SI pressed')}
-                style={styles.buttonPosition}
-              />
-              <RetroButton
-                title="NO"
-                onPress={onClose}
-                style={styles.buttonPosition}
-              />
+              <Text style={globalStyles.retroMessage}>{description}</Text>
             </View>
           </View>
         </View>
@@ -51,11 +52,4 @@ const RetroModal: React.FC<RetroModalProps> = ({ visible, onClose, title }) => {
   )
 }
 
-const styles = StyleSheet.create({
-  buttonPosition: {
-    flex: 1,
-    alignItems: 'center',
-  },
-})
-
-export default RetroModal
+export default RetroInfoModal

@@ -63,6 +63,26 @@ const globalStyles = StyleSheet.create({
   contentContainer: {
     padding: 15,
   },
+  subBarWithClose: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#333',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+  },
+  closeButton: {
+    padding: 5,
+    backgroundColor: '#444',
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: '#FFF',
+    fontSize: 16,
+    fontFamily: 'monospace',
+  },
 })
 
 export default globalStyles
