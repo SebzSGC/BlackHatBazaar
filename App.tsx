@@ -3,19 +3,12 @@ import RetroModal from './src/components/RetroModal'
 import { StyleSheet, View } from 'react-native'
 import RetroButton from './src/components/RetroButton'
 import ListOfProducts from './src/screens/ListOfProducts'
+import Login from './src/screens/Login'
 
 function App(): React.JSX.Element {
-  // const [modalVisible, setModalVisible] = useState(false)
   return (
-    <ListOfProducts />
-    // <View style={styles.container}>
-    //   <RetroButton title="Show Modal" onPress={() => setModalVisible(true)} />
-    //   <RetroModal
-    //     visible={modalVisible}
-    //     onClose={() => setModalVisible(false)}
-    //     title="This is a test"
-    //   />
-    // </View>
+    //<ListOfProducts />
+    <Login />
   )
 }
 
