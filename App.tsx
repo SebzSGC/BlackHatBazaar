@@ -1,23 +1,32 @@
-import React, { useState } from 'react'
-import RetroModal from './src/components/RetroModal'
-import { StyleSheet, View } from 'react-native'
-import RetroButton from './src/components/RetroButton'
-import ListOfProducts from './src/screens/ListOfProducts'
-import Login from './src/screens/Login'
+import * as React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
-function App(): React.JSX.Element {
+import Login from './src/screens/Login'
+import Register from './src/screens/Register'
+
+const Stack = createStackNavigator()
+
+function App() {
   return (
-    //<ListOfProducts />
-    <Login />
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="CreateAccount"
+            component={Register}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-})
 
 export default App

@@ -141,6 +141,11 @@ const globalStyles = StyleSheet.create({
     fontFamily: 'HACKED',
     fontSize: 18,
   },
+
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
 })
 
 export default globalStyles
