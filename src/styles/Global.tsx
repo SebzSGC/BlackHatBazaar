@@ -108,6 +108,39 @@ const globalStyles = StyleSheet.create({
     color: '#000',
     marginBottom: 10,
   },
+  //forms styles
+  formContainer: {
+    flex: 1,
+    backgroundColor: '#F5F5F5',
+    padding: 20,
+    justifyContent: 'center',
+  },
+  formAccountContainer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  formLogo: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    resizeMode: 'cover',
+    alignSelf: 'center',
+    marginBottom: 40,
+  },
+
+  formButton: {
+    backgroundColor: '#333',
+    borderRadius: 10,
+    paddingVertical: 10,
+    borderColor: '#FFF',
+    borderWidth: 2,
+    alignItems: 'center',
+  },
+  formButtonText: {
+    color: '#FFF',
+    fontFamily: 'HACKED',
+    fontSize: 18,
+  },
 })
 
 export default globalStyles

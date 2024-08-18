@@ -1,13 +1,5 @@
 import React, { useState } from 'react'
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  Image,
-} from 'react-native'
+import { View, Text, TouchableOpacity, Alert, Image } from 'react-native'
 import globalStyles from '../styles/Global'
 import RetroInput from '../components/RetroInput'
 
@@ -24,10 +16,10 @@ const Login = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.formContainer}>
       <Image
         source={require('../assets/img/Logo-Tienda.jpg')}
-        style={styles.logo}
+        style={globalStyles.formLogo}
       />
       <Text style={globalStyles.retroHeader}>Iniciar Sesion</Text>
 
@@ -46,13 +38,13 @@ const Login = () => {
         placeholder="Ingresa tu contraseña"
         secureTextEntry
       />
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Iniciar Sesion</Text>
+      <TouchableOpacity style={globalStyles.formButton} onPress={handleLogin}>
+        <Text style={globalStyles.formButtonText}>Iniciar Sesion</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={handleCreateAccount}
-        style={styles.createAccountContainer}
+        style={globalStyles.formAccountContainer}
       >
         <Text style={globalStyles.retroMessage}>
           ¿No tienes cuenta? Crear cuenta
@@ -61,40 +53,4 @@ const Login = () => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5',
-    padding: 20,
-    justifyContent: 'center',
-  },
-  createAccountContainer: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  logo: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    resizeMode: 'cover',
-    alignSelf: 'center',
-    marginBottom: 40,
-  },
-
-  loginButton: {
-    backgroundColor: '#333',
-    borderRadius: 10,
-    paddingVertical: 10,
-    borderColor: '#FFF',
-    borderWidth: 2,
-    alignItems: 'center',
-  },
-  loginButtonText: {
-    color: '#FFF',
-    fontFamily: 'HACKED',
-    fontSize: 18,
-  },
-})
-
 export default Login
