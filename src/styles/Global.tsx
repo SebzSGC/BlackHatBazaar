@@ -12,6 +12,7 @@ const globalStyles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     borderColor: '#FFF',
+    alignItems: 'center',
     borderWidth: 1,
   },
   retroButtonText: {
@@ -88,7 +89,24 @@ const globalStyles = StyleSheet.create({
   closeButtonText: {
     color: '#FFF',
     fontSize: 16,
-    fontFamily: 'monospace',
+    fontFamily: 'HACKED',
+  },
+  input: {
+    backgroundColor: '#E6E6E6',
+    borderRadius: 10,
+    borderColor: '#000',
+    borderWidth: 2,
+    padding: 10,
+    marginBottom: 20,
+    fontFamily: 'Jersey10-Regular',
+    fontSize: 16,
+    color: '#333',
+  },
+  label: {
+    fontFamily: 'Jersey10-Regular',
+    fontSize: 16,
+    color: '#000',
+    marginBottom: 10,
   },
 })
 

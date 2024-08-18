@@ -9,6 +9,7 @@ import {
   Image,
 } from 'react-native'
 import globalStyles from '../styles/Global'
+import RetroInput from '../components/RetroInput'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -28,28 +29,23 @@ const Login = () => {
         source={require('../assets/img/Logo-Tienda.jpg')}
         style={styles.logo}
       />
-      <Text style={styles.header}>Iniciar Sesion</Text>
+      <Text style={globalStyles.retroHeader}>Iniciar Sesion</Text>
 
-      <Text style={styles.label}>Correo Electronico</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Ingresa tu correo"
-        placeholderTextColor="#999"
+      <Text style={globalStyles.label}>Correo Electronico</Text>
+      <RetroInput
         value={email}
         onChangeText={setEmail}
-        keyboardType="email-address"
+        placeholder="Ingresa tu correo electronico"
       />
 
-      <Text style={styles.label}>Contraseña</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Ingresa tu contraseña"
-        placeholderTextColor="#999"
+      <Text style={globalStyles.label}>Contraseña</Text>
+
+      <RetroInput
         value={password}
         onChangeText={setPassword}
-        secureTextEntry={true}
+        placeholder="Ingresa tu contraseña"
+        secureTextEntry
       />
-
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>Iniciar Sesion</Text>
       </TouchableOpacity>
@@ -58,7 +54,7 @@ const Login = () => {
         onPress={handleCreateAccount}
         style={styles.createAccountContainer}
       >
-        <Text style={styles.createAccountText}>
+        <Text style={globalStyles.retroMessage}>
           ¿No tienes cuenta? Crear cuenta
         </Text>
       </TouchableOpacity>
@@ -77,12 +73,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'center',
   },
-  createAccountText: {
-    fontFamily: 'HACKED',
-    fontSize: 14,
-    color: '#000',
-    textDecorationLine: 'underline',
-  },
   logo: {
     width: 150,
     height: 150,
@@ -91,30 +81,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 40,
   },
-  header: {
-    fontSize: 32,
-    fontFamily: 'HACKED',
-    color: '#333',
-    textAlign: 'center',
-    marginBottom: 40,
-  },
-  label: {
-    fontFamily: 'Jersey10-Regular',
-    fontSize: 16,
-    color: '#000',
-    marginBottom: 10,
-  },
-  input: {
-    backgroundColor: '#E6E6E6',
-    borderRadius: 10,
-    borderColor: '#000',
-    borderWidth: 2,
-    padding: 10,
-    marginBottom: 20,
-    fontFamily: 'Jersey10-Regular',
-    fontSize: 16,
-    color: '#333',
-  },
+
   loginButton: {
     backgroundColor: '#333',
     borderRadius: 10,
