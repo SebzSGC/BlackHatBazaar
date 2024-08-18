@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import RetroButton from '../components/RetroButton'
 import RetroInfoModal from '../components/RetroInfoModal'
+import globalStyles from '../styles/Global'
 
 interface Product {
   id: string
@@ -64,12 +65,11 @@ const ListOfProducts = () => {
     <TouchableOpacity onPress={() => openModal(item)}>
       <View style={styles.productCard}>
         <Image source={item.image} style={styles.productImage} />
-        <Text style={styles.productTitle}>{item.title}</Text>
-        <Text style={styles.productPrice}>{item.price}</Text>
+        <Text style={globalStyles.retroTitle}>{item.title}</Text>
+        <Text style={globalStyles.retroHeader}>{item.price}</Text>
         <RetroButton
           title="Buy Now"
           onPress={() => console.log('Buy pressed')}
-          style={styles.buyButton}
         />
       </View>
     </TouchableOpacity>
@@ -77,7 +77,6 @@ const ListOfProducts = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Retro Marketplace</Text>
       <FlatList
         data={products}
         renderItem={renderItem}
@@ -105,13 +104,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     padding: 10,
   },
-  header: {
-    fontSize: 24,
-    fontFamily: 'HACKED',
-    color: '#333',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
   productList: {
     alignItems: 'center',
   },
@@ -130,23 +122,6 @@ const styles = StyleSheet.create({
     height: 100,
     resizeMode: 'contain',
     marginBottom: 10,
-  },
-  productTitle: {
-    fontFamily: 'HACKED',
-    fontSize: 18,
-    color: '#000',
-    marginBottom: 5,
-    textAlign: 'center',
-  },
-  productPrice: {
-    fontFamily: 'HACKED',
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 10,
-  },
-  buyButton: {
-    backgroundColor: '#C0C0C0',
-    paddingHorizontal: 20,
   },
 })
 

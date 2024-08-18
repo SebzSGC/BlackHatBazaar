@@ -26,6 +26,13 @@ const globalStyles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
+  retroHeader: {
+    fontSize: 24,
+    fontFamily: 'HACKED',
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
   retroMessage: {
     fontFamily: 'Jersey10-Regular',
     color: '#000',
