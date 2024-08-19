@@ -44,7 +44,7 @@ const Home = ({ navigation }: HomeProps) => {
       </View>
       {logOut && (
         <RetroModal
-          title="¿Desea cerrar la sesión?"
+          title="¿Desea cerrar la sesion?"
           visible={logOut}
           onClose={() => setLogOut(false)}
           onConfirm={() => {
