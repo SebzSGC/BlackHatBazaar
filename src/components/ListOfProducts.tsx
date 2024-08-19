@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   Text,
@@ -44,10 +44,24 @@ const products: Product[] = [
   },
 ]
 
-const numColumns = 2
-const screenWidth = Dimensions.get('window').width
-
 const ListOfProducts = () => {
+  const [numColumns, setNumColumns] = useState(2)
+  const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width)
+
+  useEffect(() => {
+    const updateLayout = () => {
+      const width = Dimensions.get('window').width
+      setScreenWidth(width)
+      setNumColumns(width > 600 ? 3 : 2)
+    }
+
+    const subscription = Dimensions.addEventListener('change', updateLayout)
+
+    return () => {
+      subscription?.remove()
+    }
+  }, [])
+
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [modalVisible, setModalVisible] = useState(false)
 
@@ -63,12 +77,14 @@ const ListOfProducts = () => {
 
   const renderItem = ({ item }: { item: Product }) => (
     <TouchableOpacity onPress={() => openModal(item)}>
-      <View style={styles.productCard}>
+      <View
+        style={[styles.productCard, { width: screenWidth / numColumns - 20 }]}
+      >
         <Image source={item.image} style={styles.productImage} />
         <Text style={globalStyles.retroTitle}>{item.title}</Text>
         <Text style={globalStyles.retroHeader}>{item.price}</Text>
         <RetroButton
-          title="Buy Now"
+          title="Comprar ahora"
           onPress={() => console.log('Buy pressed')}
         />
       </View>
@@ -101,8 +117,9 @@ const ListOfProducts = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#333',
     padding: 10,
+    marginTop: 20,
   },
   productList: {
     alignItems: 'center',
@@ -115,7 +132,7 @@ const styles = StyleSheet.create({
     padding: 15,
     margin: 10,
     alignItems: 'center',
-    width: screenWidth / numColumns - 20,
+    justifyContent: 'center',
   },
   productImage: {
     width: 100,

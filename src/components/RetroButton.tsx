@@ -8,18 +8,25 @@ import {
 import globalStyles from '../styles/Global'
 
 interface RetroButtonProps {
-  title: string
+  title?: string
   onPress: (event?: GestureResponderEvent) => void
   style?: ViewStyle | ViewStyle[]
+  children?: React.ReactNode
 }
 
-const RetroButton: React.FC<RetroButtonProps> = ({ title, onPress, style }) => {
+const RetroButton: React.FC<RetroButtonProps> = ({
+  title,
+  onPress,
+  style,
+  children,
+}) => {
   return (
     <TouchableOpacity
       style={[globalStyles.retroButton, style]}
       onPress={onPress}
     >
       <Text style={globalStyles.retroButtonText}>{title}</Text>
+      {children}
     </TouchableOpacity>
   )
 }

@@ -146,6 +146,19 @@ const globalStyles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
   },
+
+  //hambugueer menu styles
+  hamburgerButton: {
+    width: 30,
+    height: 30,
+    justifyContent: 'space-between',
+  },
+  hamburgerLine: {
+    width: '100%',
+    height: 4,
+    backgroundColor: '#000',
+    borderRadius: 2,
+  },
 })
 
 export default globalStyles
