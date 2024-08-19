@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import globalStyles from '../styles/Global'
 import RetroInput from '../components/RetroInput'
-import { NavigationProp } from '@react-navigation/native'
+import { CommonActions, NavigationProp } from '@react-navigation/native'
 
 type LoginProps = {
   navigation: NavigationProp<any>
@@ -20,7 +20,12 @@ const Login = ({ navigation }: LoginProps) => {
   const [password, setPassword] = useState('')
 
   const handleLogin = () => {
-    Alert.alert('Login', `Email: ${email}\nPassword: ${password}`)
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      })
+    )
   }
 
   const handleCreateAccount = () => {

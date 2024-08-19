@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import Login from './src/screens/Login'
 import Register from './src/screens/Register'
+import Home from './src/screens/Home'
 
 const Stack = createStackNavigator()
 
@@ -21,6 +22,11 @@ function App() {
           <Stack.Screen
             name="CreateAccount"
             component={Register}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

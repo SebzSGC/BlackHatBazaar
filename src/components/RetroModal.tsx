@@ -11,12 +11,17 @@ import RetroButton from './RetroButton'
 
 interface RetroModalProps {
   visible: boolean
-  withButtons?: boolean
   title: string
   onClose: (event?: GestureResponderEvent) => void
+  onConfirm: () => void
 }
 
-const RetroModal: React.FC<RetroModalProps> = ({ visible, onClose, title }) => {
+const RetroModal: React.FC<RetroModalProps> = ({
+  visible,
+  onClose,
+  onConfirm,
+  title,
+}) => {
   return (
     <Modal
       animationType="fade"
@@ -35,7 +40,7 @@ const RetroModal: React.FC<RetroModalProps> = ({ visible, onClose, title }) => {
             <View style={[globalStyles.retroButtonContainer]}>
               <RetroButton
                 title="SI"
-                onPress={() => console.log('SI pressed')}
+                onPress={onConfirm}
                 style={styles.buttonPosition}
               />
               <RetroButton
