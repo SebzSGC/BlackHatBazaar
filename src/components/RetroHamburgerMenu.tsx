@@ -3,8 +3,13 @@ import { View, Text, StyleSheet, Modal } from 'react-native'
 import HamburgerMenu from './HambugerMenu'
 import RetroButton from './RetroButton'
 import globalStyles from '../styles/Global'
+import { NavigationProp } from '@react-navigation/native'
 
-const RetroHamburgerMenu = () => {
+type RetroHamburgerMenuProps = {
+  navigation: NavigationProp<any>
+}
+
+const RetroHamburgerMenu = ({ navigation }: RetroHamburgerMenuProps) => {
   const [menuVisible, setMenuVisible] = useState(false)
 
   const toggleMenu = () => {
@@ -33,7 +38,9 @@ const RetroHamburgerMenu = () => {
             </RetroButton>
             <RetroButton
               style={[styles.menuItem, { marginBottom: 5 }]}
-              onPress={closeMenu}
+              onPress={() => {
+                navigation.navigate('Profile')
+              }}
             >
               <Text style={globalStyles.retroButtonText}>Mi Perfil</Text>
             </RetroButton>

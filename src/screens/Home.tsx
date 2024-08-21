@@ -35,7 +35,7 @@ const Home = ({ navigation }: HomeProps) => {
 
   return (
     <>
-      <RetroHamburgerMenu />
+      <RetroHamburgerMenu navigation={navigation} />
       <View style={styles.container}>
         <Text style={[globalStyles.retroHeader, styles.title]}>
           Lista de productos

@@ -1,12 +1,5 @@
 import React, { useState } from 'react'
-import {
-  Text,
-  TouchableOpacity,
-  Alert,
-  Image,
-  ScrollView,
-  View,
-} from 'react-native'
+import { Text, TouchableOpacity, Image, ScrollView, View } from 'react-native'
 import globalStyles from '../styles/Global'
 import RetroInput from '../components/RetroInput'
 import { CommonActions, NavigationProp } from '@react-navigation/native'

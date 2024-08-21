@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Login from './src/screens/Login'
 import Register from './src/screens/Register'
 import Home from './src/screens/Home'
+import RetroProfile from './src/components/RetroProfile'
 
 const Stack = createStackNavigator()
 
@@ -27,6 +28,11 @@ function App() {
           <Stack.Screen
             name="Home"
             component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={RetroProfile}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
