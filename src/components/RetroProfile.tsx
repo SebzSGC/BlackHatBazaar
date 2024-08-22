@@ -13,6 +13,7 @@ import RetroSupport from './icons/RetroSupport'
 import RetroHearth from './icons/RetroHearth'
 import RetroData from './icons/RetroData'
 import RetroBoughts from './icons/RetroBoughts'
+import globalStyles from '../styles/Global'
 
 const RetroProfile: React.FC = () => {
   const booleano = false
@@ -21,7 +22,7 @@ const RetroProfile: React.FC = () => {
       <View style={styles.header}>
         <Text style={styles.welcome}>Mi Perfil</Text>
         <TouchableOpacity>
-          <Text style={styles.headerButtonText}>
+          <Text style={globalStyles.retroButtonText}>
             <RetroBell fill={booleano ? '#FF0000' : '#000'} />
           </Text>
         </TouchableOpacity>
@@ -30,7 +31,9 @@ const RetroProfile: React.FC = () => {
         <View style={styles.profileBox}>
           <View style={styles.cardIn}>
             <View>
-              <Text style={styles.profileText}>nombre</Text>
+              <Text style={[globalStyles.retroHeader, { color: '#fff' }]}>
+                nombre
+              </Text>
               <Text style={styles.cardDescription}>alias</Text>
             </View>
             <View style={styles.imageContainer}>
@@ -131,11 +134,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Jersey10-Regular',
     color: '#CCC',
     marginTop: 6,
-  },
-  profileText: {
-    fontSize: 20,
-    fontFamily: 'HACKED',
-    color: '#FFF',
   },
   profileBox: {
     margin: 15,
