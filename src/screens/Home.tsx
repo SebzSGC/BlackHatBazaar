@@ -40,7 +40,7 @@ const Home = ({ navigation }: HomeProps) => {
         <Text style={[globalStyles.retroHeader, styles.title]}>
           Lista de productos
         </Text>
-        <ListOfProducts />
+        <ListOfProducts navigation={navigation} />
       </View>
       {logOut && (
         <RetroModal

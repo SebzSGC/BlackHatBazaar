@@ -11,13 +11,11 @@ import {
 import RetroButton from '../components/RetroButton'
 import RetroInfoModal from '../components/RetroInfoModal'
 import globalStyles from '../styles/Global'
+import { NavigationProp } from '@react-navigation/native'
+import Product from '../interfaces/Product'
 
-interface Product {
-  id: string
-  title: string
-  price: string
-  image: any
-  description: string
+type ListOfProductsProps = {
+  navigation: NavigationProp<any>
 }
 
 const products: Product[] = [
@@ -27,6 +25,8 @@ const products: Product[] = [
     price: '$80',
     image: require('../assets/img/keybord.jpeg'),
     description: 'This is a vintage keyboard from the 80s',
+    category: 'Electronics',
+    stock: 'Available',
   },
   {
     id: '2',
@@ -34,6 +34,8 @@ const products: Product[] = [
     price: '$150',
     image: require('../assets/img/monitor.jpeg'),
     description: 'This is a vintage monitor from the 80s',
+    category: 'Electronics',
+    stock: 'Available',
   },
   {
     id: '3',
@@ -41,10 +43,12 @@ const products: Product[] = [
     price: '$20',
     image: require('../assets/img/mouse.jpeg'),
     description: 'This is a vintage mouse from the 80s',
+    category: 'Electronics',
+    stock: 'Available',
   },
 ]
 
-const ListOfProducts = () => {
+const ListOfProducts = ({ navigation }: ListOfProductsProps) => {
   const [numColumns, setNumColumns] = useState(2)
   const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width)
 
@@ -85,18 +89,19 @@ const ListOfProducts = () => {
         <Text style={globalStyles.retroHeader}>{item.price}</Text>
         <RetroButton
           title="Comprar ahora"
-          onPress={() => console.log('Buy pressed')}
+          onPress={() => {
+            navigation.navigate('ProductDetail', { product: item })
+          }}
         />
       </View>
     </TouchableOpacity>
   )
-
   return (
     <View style={styles.container}>
       <FlatList
         data={products}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
         key={numColumns.toString()}
         numColumns={numColumns}
         contentContainerStyle={styles.productList}

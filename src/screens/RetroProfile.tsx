@@ -8,11 +8,11 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native'
-import RetroBell from './icons/RetroBell'
-import RetroSupport from './icons/RetroSupport'
-import RetroHearth from './icons/RetroHearth'
-import RetroData from './icons/RetroData'
-import RetroBoughts from './icons/RetroBoughts'
+import RetroBell from '../components/icons/RetroBell'
+import RetroSupport from '../components/icons/RetroSupport'
+import RetroHearth from '../components/icons/RetroHearth'
+import RetroData from '../components/icons/RetroData'
+import RetroBoughts from '../components/icons/RetroBoughts'
 import globalStyles from '../styles/Global'
 
 const RetroProfile: React.FC = () => {
