@@ -31,7 +31,6 @@ const RetroModal: React.FC<RetroModalProps> = ({
     >
       <View style={globalStyles.modalBackground}>
         <View style={globalStyles.retroContainer}>
-          {/* Mini sub barra */}
           <View style={globalStyles.subBar}>
             <Text style={globalStyles.subBarText}>BlackHatBazaar</Text>
           </View>

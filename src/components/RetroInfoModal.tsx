@@ -30,7 +30,6 @@ const RetroInfoModal: React.FC<RetroInfoModalProps> = ({
     >
       <View style={globalStyles.modalBackground}>
         <View style={globalStyles.retroContainer}>
-          {/* Mini sub barra con X para cerrar */}
           <View style={globalStyles.subBarWithClose}>
             <Text style={globalStyles.subBarText}>BlackHatBazaar</Text>
             <TouchableOpacity
