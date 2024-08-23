@@ -9,7 +9,7 @@ import globalStyles from '../styles/Global'
 
 interface RetroButtonProps {
   title?: string
-  onPress: (event?: GestureResponderEvent) => void
+  onPress?: (event?: GestureResponderEvent) => void
   style?: ViewStyle | ViewStyle[]
   children?: React.ReactNode
 }

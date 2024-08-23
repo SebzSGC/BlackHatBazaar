@@ -61,7 +61,7 @@ const BottomNavBar = ({ navigation }: BottomNavBarProps) => {
           <Text style={styles.navText}>Carrito</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
         <View style={styles.navItem}>
           <Chest />
           <Text style={styles.navText}>Categorías</Text>

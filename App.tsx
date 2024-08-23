@@ -8,6 +8,7 @@ import Register from './src/screens/Register'
 import Home from './src/screens/Home'
 import RetroProfile from './src/screens/RetroProfile'
 import ProductDetail from './src/screens/ProductDetail'
+import Categories from './src/components/Categories'
 
 const Stack = createStackNavigator()
 
@@ -39,6 +40,11 @@ function App() {
           <Stack.Screen
             name="ProductDetail"
             component={ProductDetail}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Categories"
+            component={Categories}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
