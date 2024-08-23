@@ -36,7 +36,7 @@ const Categories = () => {
       style={styles.background}
     >
       <View style={styles.overlay}>
-        <Text style={[globalStyles.retroHeader, { color: '#ff0008s' }]}>
+        <Text style={[globalStyles.retroHeader, { color: '#ff0008' }]}>
           Categorias
         </Text>
         <FlatList
