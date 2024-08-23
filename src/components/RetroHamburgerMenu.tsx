@@ -29,9 +29,9 @@ const RetroHamburgerMenu = ({ navigation }: RetroHamburgerMenuProps) => {
         onRequestClose={closeMenu}
       >
         <ImageBackground
-          source={require('../assets/img/menu-bg.jpg')} // Ruta de la imagen de fondo
+          source={require('../assets/img/menu-bg.jpeg')}
           style={styles.background}
-          imageStyle={{ resizeMode: 'stretch' }} // Puedes cambiar esto a 'contain', 'stretch', etc.
+          imageStyle={{ resizeMode: 'cover' }}
         >
           <RetroButton style={styles.modalBackground} onPress={closeMenu}>
             <View style={styles.menuContainer}>
@@ -77,20 +77,20 @@ const styles = StyleSheet.create({
   },
   modalBackground: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.0)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   menuContainer: {
-    width: 250,
+    width: '100%',
     borderRadius: 10,
-    paddingVertical: 20,
+    paddingVertical: 50,
     paddingHorizontal: 10,
     borderWidth: 2,
     borderColor: '#FFF',
   },
   menuItem: {
-    paddingVertical: 15,
+    paddingVertical: 28,
     paddingHorizontal: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#FFF',
