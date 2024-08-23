@@ -67,7 +67,7 @@ const ListOfProducts = ({ navigation }: ListOfProductsProps) => {
   }, [])
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [modalVisible, setModalVisible] = useState(false)
+  const [modalVisible, setModalVisible] = useState<boolean>(false)
 
   const openModal = (product: Product) => {
     setSelectedProduct(product)
@@ -90,7 +90,7 @@ const ListOfProducts = ({ navigation }: ListOfProductsProps) => {
         <RetroButton
           title="Comprar ahora"
           onPress={() => {
-            navigation.navigate('ProductDetail', { product: item })
+            navigation.navigate('ProductDetail')
           }}
         />
       </View>

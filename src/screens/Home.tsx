@@ -9,6 +9,7 @@ import RetroModal from '../components/RetroModal'
 import RetroHamburgerMenu from '../components/RetroHamburgerMenu'
 import ListOfProducts from '../components/ListOfProducts'
 import globalStyles from '../styles/Global'
+import BottomNavBar from '../components/BottomNavBar'
 
 type HomeProps = {
   navigation: NavigationProp<any>
@@ -58,6 +59,7 @@ const Home = ({ navigation }: HomeProps) => {
           }}
         />
       )}
+      <BottomNavBar navigation={navigation} />
     </>
   )
 }

@@ -7,6 +7,7 @@ import Login from './src/screens/Login'
 import Register from './src/screens/Register'
 import Home from './src/screens/Home'
 import RetroProfile from './src/screens/RetroProfile'
+import ProductDetail from './src/screens/ProductDetail'
 
 const Stack = createStackNavigator()
 
@@ -33,6 +34,11 @@ function App() {
           <Stack.Screen
             name="Profile"
             component={RetroProfile}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ProductDetail"
+            component={ProductDetail}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
