@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  ImageBackground,
-} from 'react-native'
+import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native'
 import RetroButton from './RetroButton'
 import globalStyles from '../styles/Global'
 

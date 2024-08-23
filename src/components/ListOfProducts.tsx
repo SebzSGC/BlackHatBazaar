@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native'
 import RetroButton from '../components/RetroButton'
 import RetroInfoModal from '../components/RetroInfoModal'
@@ -96,33 +97,43 @@ const ListOfProducts = ({ navigation }: ListOfProductsProps) => {
       </View>
     </TouchableOpacity>
   )
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={products}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-        key={numColumns.toString()}
-        numColumns={numColumns}
-        contentContainerStyle={styles.productList}
-      />
 
-      {selectedProduct && (
-        <RetroInfoModal
-          visible={modalVisible}
-          onClose={() => closeModal()}
-          title={selectedProduct.title}
-          description={selectedProduct.description}
+  return (
+    <ImageBackground
+      source={require('../assets/img/home-bg.jpg')}
+      style={styles.background}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+          key={numColumns.toString()}
+          numColumns={numColumns}
+          contentContainerStyle={styles.productList}
         />
-      )}
-    </View>
+
+        {selectedProduct && (
+          <RetroInfoModal
+            visible={modalVisible}
+            onClose={() => closeModal()}
+            title={selectedProduct.title}
+            description={selectedProduct.description}
+          />
+        )}
+      </View>
+    </ImageBackground>
   )
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#333',
     padding: 10,
     marginTop: 20,
   },
