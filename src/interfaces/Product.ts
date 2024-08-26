@@ -1,4 +1,4 @@
-interface Product {
+export interface Product {
   price: string
   description: string
   stock: string
@@ -6,6 +6,5 @@ interface Product {
   image: any
   id: string
   title: string
+  userId: string
 }
-
-export default Product

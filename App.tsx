@@ -1,7 +1,12 @@
-import * as React from 'react'
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { enableScreens } from 'react-native-screens'
+
+enableScreens()
+
+const Stack = createStackNavigator()
 
 import Login from './src/screens/Login'
 import Register from './src/screens/Register'
@@ -9,8 +14,6 @@ import Home from './src/screens/Home'
 import RetroProfile from './src/screens/RetroProfile'
 import ProductDetail from './src/screens/ProductDetail'
 import Categories from './src/components/Categories'
-
-const Stack = createStackNavigator()
 
 function App() {
   return (
