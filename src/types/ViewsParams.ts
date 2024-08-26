@@ -2,8 +2,8 @@ import { Product } from '../interfaces/Product'
 import { User } from '../interfaces/User'
 
 export type ViewsParams = {
-  Home: User
+  Home: undefined
   Profile: User
   ProductDetail: User & Product
-  categories: Product[]
+  Categories: Product[]
 }

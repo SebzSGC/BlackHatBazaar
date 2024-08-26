@@ -10,12 +10,16 @@ import RetroHamburgerMenu from '../components/RetroHamburgerMenu'
 import ListOfProducts from '../components/ListOfProducts'
 import globalStyles from '../styles/Global'
 import BottomNavBar from '../components/BottomNavBar'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { ViewsParams } from '../types/ViewsParams'
 
-type HomeProps = {
-  navigation: NavigationProp<any>
+type HomeProp = StackNavigationProp<ViewsParams, 'Home'>
+
+type Props = {
+  navigation: NavigationProp<HomeProp>
 }
 
-const Home = ({ navigation }: HomeProps) => {
+const Home = ({ navigation }: Props) => {
   const [logOut, setLogOut] = useState(false)
 
   const closeSession = (): boolean => {
