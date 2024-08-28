@@ -1,19 +1,20 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
 import RetroButton from '../components/RetroButton'
-import Product from '../interfaces/Product'
 import ProductInfo from '../components/ProductInfo'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { ViewsParams } from '../types/ViewsParams'
+import { RouteProp } from '@react-navigation/native'
 
-const ProductDetail = () => {
-  const product: Product = {
-    id: '1',
-    title: 'Retro Keyboard',
-    price: '$80',
-    description: 'This is a vintage keyboard from the 80s',
-    stock: 'Available',
-    category: 'Electronics',
-    image: require('../assets/img/keybord.jpeg'),
-  }
+type ProductDetailScreenRouteProp = RouteProp<ViewsParams, 'ProductDetail'>
+
+type Props = {
+  navigation: StackNavigationProp<ViewsParams, 'ProductDetail'>
+  route: ProductDetailScreenRouteProp
+}
+
+const ProductDetail: React.FC<Props> = ({ navigation, route }) => {
+  const { product } = route.params
   return (
     <ScrollView style={styles.container}>
       <Image source={product.image} style={styles.image} />

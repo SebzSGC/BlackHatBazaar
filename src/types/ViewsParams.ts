@@ -4,6 +4,9 @@ import { User } from '../interfaces/User'
 export type ViewsParams = {
   Home: undefined
   Profile: User
-  ProductDetail: User & Product
+  ProductDetail: { product: Product }
   Categories: Product[]
+  ListOfProducts: Product[]
+  Login: undefined
+  CreateAccount: undefined
 }

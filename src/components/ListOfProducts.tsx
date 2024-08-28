@@ -12,11 +12,16 @@ import {
 import RetroButton from '../components/RetroButton'
 import RetroInfoModal from '../components/RetroInfoModal'
 import globalStyles from '../styles/Global'
-import { NavigationProp } from '@react-navigation/native'
-import Product from '../interfaces/Product'
+import { Product } from '../interfaces/Product'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { ViewsParams } from '../types/ViewsParams'
 
-type ListOfProductsProps = {
-  navigation: NavigationProp<any>
+type ListOfProductsProp =
+  | StackNavigationProp<ViewsParams, 'ListOfProducts'>
+  | StackNavigationProp<ViewsParams, 'Home'>
+
+type Props = {
+  navigation: ListOfProductsProp
 }
 
 const products: Product[] = [
@@ -28,6 +33,7 @@ const products: Product[] = [
     description: 'This is a vintage keyboard from the 80s',
     category: 'Electronics',
     stock: 'Available',
+    userId: '1',
   },
   {
     id: '2',
@@ -37,6 +43,7 @@ const products: Product[] = [
     description: 'This is a vintage monitor from the 80s',
     category: 'Electronics',
     stock: 'Available',
+    userId: '2',
   },
   {
     id: '3',
@@ -46,10 +53,11 @@ const products: Product[] = [
     description: 'This is a vintage mouse from the 80s',
     category: 'Electronics',
     stock: 'Available',
+    userId: '3',
   },
 ]
 
-const ListOfProducts = ({ navigation }: ListOfProductsProps) => {
+const ListOfProducts = ({ navigation }: Props) => {
   const [numColumns, setNumColumns] = useState(2)
   const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width)
 
@@ -91,7 +99,7 @@ const ListOfProducts = ({ navigation }: ListOfProductsProps) => {
         <RetroButton
           title="Comprar ahora"
           onPress={() => {
-            navigation.navigate('ProductDetail')
+            navigation.navigate('ProductDetail', { product: item })
           }}
         />
       </View>

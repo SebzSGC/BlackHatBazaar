@@ -13,10 +13,12 @@ import BottomNavBar from '../components/BottomNavBar'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ViewsParams } from '../types/ViewsParams'
 
-type HomeProp = StackNavigationProp<ViewsParams, 'Home'>
+type HomeProp =
+  | StackNavigationProp<ViewsParams, 'Home'>
+  | StackNavigationProp<ViewsParams, 'ListOfProducts'>
 
 type Props = {
-  navigation: NavigationProp<HomeProp>
+  navigation: HomeProp
 }
 
 const Home = ({ navigation }: Props) => {

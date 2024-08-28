@@ -3,10 +3,11 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { enableScreens } from 'react-native-screens'
+import { ViewsParams } from './src/types/ViewsParams'
 
 enableScreens()
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<ViewsParams>()
 
 import Login from './src/screens/Login'
 import Register from './src/screens/Register'
