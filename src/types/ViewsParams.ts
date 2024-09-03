@@ -9,4 +9,5 @@ export type ViewsParams = {
   ListOfProducts: Product[]
   Login: undefined
   CreateAccount: undefined
+  CartShop: undefined
 }

@@ -15,6 +15,7 @@ import globalStyles from '../styles/Global'
 import { Product } from '../interfaces/Product'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ViewsParams } from '../types/ViewsParams'
+import products from '../utils/products'
 
 type ListOfProductsProp =
   | StackNavigationProp<ViewsParams, 'ListOfProducts'>
@@ -23,39 +24,6 @@ type ListOfProductsProp =
 type Props = {
   navigation: ListOfProductsProp
 }
-
-const products: Product[] = [
-  {
-    id: '1',
-    title: 'Retro Keyboard',
-    price: '$80',
-    image: require('../assets/img/keybord.jpeg'),
-    description: 'This is a vintage keyboard from the 80s',
-    category: 'Electronics',
-    stock: 'Available',
-    userId: '1',
-  },
-  {
-    id: '2',
-    title: 'Vintage Monitor',
-    price: '$150',
-    image: require('../assets/img/monitor.jpeg'),
-    description: 'This is a vintage monitor from the 80s',
-    category: 'Electronics',
-    stock: 'Available',
-    userId: '2',
-  },
-  {
-    id: '3',
-    title: 'Classic Mouse',
-    price: '$20',
-    image: require('../assets/img/mouse.jpeg'),
-    description: 'This is a vintage mouse from the 80s',
-    category: 'Electronics',
-    stock: 'Available',
-    userId: '3',
-  },
-]
 
 const ListOfProducts = ({ navigation }: Props) => {
   const [numColumns, setNumColumns] = useState(2)
@@ -95,7 +63,7 @@ const ListOfProducts = ({ navigation }: Props) => {
       >
         <Image source={item.image} style={styles.productImage} />
         <Text style={globalStyles.retroTitle}>{item.title}</Text>
-        <Text style={globalStyles.retroHeader}>{item.price}</Text>
+        <Text style={globalStyles.retroHeader}>${item.price}</Text>
         <RetroButton
           title="Comprar ahora"
           onPress={() => {
