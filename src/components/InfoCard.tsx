@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import globalStyles from '../styles/Global'
 import { Product } from '../interfaces/Product'
-
+import PressableOpacity from './PressableOpacity'
 interface InfoCardProps {
   products: Product[]
   addToCart: (product: Product) => void
@@ -37,9 +37,9 @@ const InfoCard: React.FC<InfoCardProps> = ({
           <View style={globalStyles.retroContainer}>
             <View style={globalStyles.subBarWithClose}>
               <Text style={globalStyles.subBarText}>{product.title}</Text>
-              <TouchableOpacity style={globalStyles.closeButton}>
+              <PressableOpacity style={globalStyles.closeButton}>
                 <Text style={globalStyles.closeButtonText}>X</Text>
-              </TouchableOpacity>
+              </PressableOpacity>
             </View>
             <View style={globalStyles.contentContainer}>
               <Image source={product.image} style={globalStyles.productImage} />
@@ -50,7 +50,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                 ${product.price.toFixed(2)}
               </Text>
               <View style={globalStyles.quantityContainer}>
-                <TouchableOpacity
+                <PressableOpacity
                   onPress={() => {
                     decreaseQuantity(index)
                     deleteFromCart(product)
@@ -58,11 +58,11 @@ const InfoCard: React.FC<InfoCardProps> = ({
                   style={globalStyles.quantityButton}
                 >
                   <Text style={globalStyles.quantityButtonText}>-</Text>
-                </TouchableOpacity>
+                </PressableOpacity>
                 <Text style={globalStyles.quantityText}>
                   {quantities[index]}
                 </Text>
-                <TouchableOpacity
+                <PressableOpacity
                   onPress={() => {
                     increaseQuantity(index)
                     addToCart(product)
@@ -70,7 +70,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                   style={globalStyles.quantityButton}
                 >
                   <Text style={globalStyles.quantityButtonText}>+</Text>
-                </TouchableOpacity>
+                </PressableOpacity>
               </View>
             </View>
           </View>

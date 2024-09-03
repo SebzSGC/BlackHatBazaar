@@ -1,12 +1,7 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  Modal,
-  GestureResponderEvent,
-  TouchableOpacity,
-} from 'react-native'
+import { View, Text, Modal, GestureResponderEvent } from 'react-native'
 import globalStyles from '../styles/Global'
+import PressableOpacity from './PressableOpacity'
 
 interface RetroInfoModalProps {
   visible: boolean
@@ -32,12 +27,9 @@ const RetroInfoModal: React.FC<RetroInfoModalProps> = ({
         <View style={globalStyles.retroContainer}>
           <View style={globalStyles.subBarWithClose}>
             <Text style={globalStyles.subBarText}>BlackHatBazaar</Text>
-            <TouchableOpacity
-              onPress={onClose}
-              style={globalStyles.closeButton}
-            >
+            <PressableOpacity onPress={onClose}>
               <Text style={globalStyles.closeButtonText}>X</Text>
-            </TouchableOpacity>
+            </PressableOpacity>
           </View>
           <View style={globalStyles.contentContainer}>
             <Text style={globalStyles.retroTitle}>{title}</Text>

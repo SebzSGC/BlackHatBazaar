@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Text, TouchableOpacity, Image, ScrollView, View } from 'react-native'
+import { Text, Image, ScrollView, View } from 'react-native'
 import globalStyles from '../styles/Global'
 import RetroInput from '../components/RetroInput'
 import { CommonActions, NavigationProp } from '@react-navigation/native'
+import PressableOpacity from '../components/PressableOpacity'
 
 type LoginProps = {
   navigation: NavigationProp<any>
@@ -51,18 +52,18 @@ const Login = ({ navigation }: LoginProps) => {
           placeholder="Ingresa tu contraseña"
           secureTextEntry
         />
-        <TouchableOpacity style={globalStyles.formButton} onPress={handleLogin}>
+        <PressableOpacity style={globalStyles.formButton} onPress={handleLogin}>
           <Text style={globalStyles.formButtonText}>Iniciar Sesion</Text>
-        </TouchableOpacity>
+        </PressableOpacity>
 
-        <TouchableOpacity
+        <PressableOpacity
           onPress={handleCreateAccount}
           style={globalStyles.formAccountContainer}
         >
           <Text style={globalStyles.retroMessage}>
             ¿No tienes cuenta? Crear cuenta
           </Text>
-        </TouchableOpacity>
+        </PressableOpacity>
       </View>
     </ScrollView>
   )

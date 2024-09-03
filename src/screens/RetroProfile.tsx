@@ -6,7 +6,6 @@ import {
   Platform,
   ScrollView,
   Image,
-  TouchableOpacity,
 } from 'react-native'
 import RetroBell from '../components/icons/RetroBell'
 import RetroSupport from '../components/icons/RetroSupport'
@@ -14,6 +13,7 @@ import RetroHearth from '../components/icons/RetroHearth'
 import RetroData from '../components/icons/RetroData'
 import RetroBoughts from '../components/icons/RetroBoughts'
 import globalStyles from '../styles/Global'
+import PressableOpacity from '../components/PressableOpacity'
 
 const RetroProfile: React.FC = () => {
   const booleano = false
@@ -21,11 +21,11 @@ const RetroProfile: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.welcome}>Mi Perfil</Text>
-        <TouchableOpacity>
+        <PressableOpacity>
           <Text style={globalStyles.retroButtonText}>
             <RetroBell fill={booleano ? '#FF0000' : '#000'} />
           </Text>
-        </TouchableOpacity>
+        </PressableOpacity>
       </View>
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.profileBox}>
@@ -48,38 +48,38 @@ const RetroProfile: React.FC = () => {
             </View>
           </View>
         </View>
-        <TouchableOpacity style={styles.profileBoxShadow}>
+        <PressableOpacity style={styles.profileBoxShadow}>
           <View style={styles.cardIn}>
             <Text style={styles.cardHeader}>Mis compras</Text>
             <Text style={styles.iconText}>
               <RetroBoughts />
             </Text>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.profileBoxShadow}>
+        </PressableOpacity>
+        <PressableOpacity style={styles.profileBoxShadow}>
           <View style={styles.cardIn}>
             <Text style={styles.cardHeader}>Mis datos</Text>
             <Text style={styles.iconText}>
               <RetroData />
             </Text>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.profileBoxShadow}>
+        </PressableOpacity>
+        <PressableOpacity style={styles.profileBoxShadow}>
           <View style={styles.cardIn}>
             <Text style={styles.cardHeader}>Mis favoritos</Text>
             <Text style={styles.iconText}>
               <RetroHearth />
             </Text>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.profileBoxShadow}>
+        </PressableOpacity>
+        <PressableOpacity style={styles.profileBoxShadow}>
           <View style={styles.cardIn}>
             <Text style={styles.cardHeader}>Soporte</Text>
             <Text style={styles.iconText}>
               <RetroSupport />
             </Text>
           </View>
-        </TouchableOpacity>
+        </PressableOpacity>
         <View style={styles.versionText}>
           <Text style={styles.cardDescription}>BlackHatBazaar</Text>
         </View>

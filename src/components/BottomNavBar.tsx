@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, Keyboard, TouchableOpacity } from 'react-native'
+import { View, Text, Keyboard } from 'react-native'
 import { NavigationProp } from '@react-navigation/native'
 import LookUp from './icons/LookUp'
 import Chest from './icons/Chest'
@@ -7,6 +7,7 @@ import Cart from './icons/Cart'
 import { TextInput } from 'react-native-gesture-handler'
 import globalStyles from '../styles/Global'
 import products from '../utils/products'
+import PressableOpacity from './PressableOpacity'
 
 type BottomNavBarProps = {
   navigation: NavigationProp<any>
@@ -45,24 +46,24 @@ const BottomNavBar = ({ navigation }: BottomNavBarProps) => {
 
   return (
     <View style={globalStyles.navBar}>
-      <TouchableOpacity onPress={handleSearchPress}>
+      <PressableOpacity onPress={handleSearchPress}>
         <View style={globalStyles.navItem}>
           <LookUp />
         </View>
         <Text style={globalStyles.navText}>Buscar</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('CartShop')}>
+      </PressableOpacity>
+      <PressableOpacity onPress={() => navigation.navigate('CartShop')}>
         <View style={globalStyles.navItem}>
           <Cart cart={products} />
           <Text style={globalStyles.navText}>Carrito</Text>
         </View>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
+      </PressableOpacity>
+      <PressableOpacity onPress={() => navigation.navigate('Categories')}>
         <View style={globalStyles.navItem}>
           <Chest />
         </View>
         <Text style={globalStyles.navText}>Categorías</Text>
-      </TouchableOpacity>
+      </PressableOpacity>
       {isSearchVisible && (
         <View style={globalStyles.searchContainer}>
           <TextInput

@@ -1,12 +1,7 @@
 import React from 'react'
-import {
-  GestureResponderEvent,
-  Text,
-  TextStyle,
-  TouchableOpacity,
-  ViewStyle,
-} from 'react-native'
+import { GestureResponderEvent, Text, TextStyle, ViewStyle } from 'react-native'
 import globalStyles from '../styles/Global'
+import PressableOpacityOpacity from './PressableOpacity'
 
 interface RetroButtonProps {
   title?: string
@@ -24,13 +19,14 @@ const RetroButton: React.FC<RetroButtonProps> = ({
   children,
 }) => {
   return (
-    <TouchableOpacity
+    <PressableOpacityOpacity
       style={[globalStyles.retroButton, style]}
       onPress={onPress}
+      opacity={false}
     >
       <Text style={[globalStyles.retroButtonText, styleText]}>{title}</Text>
       {children}
-    </TouchableOpacity>
+    </PressableOpacityOpacity>
   )
 }
 

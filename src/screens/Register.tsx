@@ -1,15 +1,9 @@
 import React, { useState } from 'react'
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  StyleSheet,
-} from 'react-native'
+import { View, Text, Image, ScrollView } from 'react-native'
 import globalStyles from '../styles/Global'
 import RetroInput from '../components/RetroInput'
 import { NavigationProp } from '@react-navigation/native'
+import PressableOpacity from '../components/PressableOpacity'
 
 type RegisterProps = {
   navigation: NavigationProp<any>
@@ -81,21 +75,21 @@ const Register = ({ navigation }: RegisterProps) => {
           placeholder="Ingresa tu región"
         />
 
-        <TouchableOpacity
+        <PressableOpacity
           style={globalStyles.formButton}
           onPress={handleRegister}
         >
           <Text style={globalStyles.formButtonText}>Crear cuenta</Text>
-        </TouchableOpacity>
+        </PressableOpacity>
 
-        <TouchableOpacity
+        <PressableOpacity
           onPress={handleCreateAccount}
           style={globalStyles.formAccountContainer}
         >
           <Text style={globalStyles.retroMessage}>
             ¿Ya tienes una cuenta? Iniciar Sesión
           </Text>
-        </TouchableOpacity>
+        </PressableOpacity>
       </View>
     </ScrollView>
   )

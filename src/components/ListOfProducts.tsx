@@ -6,7 +6,6 @@ import {
   FlatList,
   StyleSheet,
   Dimensions,
-  TouchableOpacity,
   ImageBackground,
 } from 'react-native'
 import RetroButton from '../components/RetroButton'
@@ -16,6 +15,7 @@ import { Product } from '../interfaces/Product'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ViewsParams } from '../types/ViewsParams'
 import products from '../utils/products'
+import PressableOpacity from '../components/PressableOpacity'
 
 type ListOfProductsProp =
   | StackNavigationProp<ViewsParams, 'ListOfProducts'>
@@ -57,7 +57,7 @@ const ListOfProducts = ({ navigation }: Props) => {
   }
 
   const renderItem = ({ item }: { item: Product }) => (
-    <TouchableOpacity onPress={() => openModal(item)}>
+    <PressableOpacity opacity={false} onPress={() => openModal(item)}>
       <View
         style={[styles.productCard, { width: screenWidth / numColumns - 20 }]}
       >
@@ -71,7 +71,7 @@ const ListOfProducts = ({ navigation }: Props) => {
           }}
         />
       </View>
-    </TouchableOpacity>
+    </PressableOpacity>
   )
 
   return (
