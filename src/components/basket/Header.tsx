@@ -2,11 +2,16 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import RetroButton from '../RetroButton'
 import globalStyles from '../../styles/Global'
+import { NavigationProp } from '@react-navigation/native'
 
-const Header = () => {
+type Props = {
+  navigation: NavigationProp<any>
+}
+
+const Header = ({ navigation }: Props) => {
   return (
     <View style={[styles.headerStyle, globalStyles.retroButton]}>
-      <RetroButton title="x" />
+      <RetroButton onPress={() => navigation.goBack()} title="x" />
       <Text
         style={[
           globalStyles.retroTitle,
