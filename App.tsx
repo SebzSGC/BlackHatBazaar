@@ -16,6 +16,7 @@ import RetroProfile from './src/screens/RetroProfile'
 import ProductDetail from './src/screens/ProductDetail'
 import Categories from './src/components/Categories'
 import CartShop from './src/screens/CartShop'
+import Ofert from './src/components/Ofert'
 
 function App() {
   return (
@@ -55,6 +56,11 @@ function App() {
           <Stack.Screen
             name="CartShop"
             component={CartShop}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Ofert"
+            component={Ofert}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

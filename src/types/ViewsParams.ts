@@ -10,4 +10,5 @@ export type ViewsParams = {
   Login: undefined
   CreateAccount: undefined
   CartShop: undefined
+  Ofert: undefined
 }
