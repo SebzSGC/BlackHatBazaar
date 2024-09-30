@@ -12,7 +12,8 @@ const products: Product[] = [
     image: require('../assets/img/keybord.jpeg'),
     userId: 'user123',
     amountTaken: 1,
-    onSale: false,
+    onSale: true,
+    oldPrice: 79.99,
   },
   {
     id: '2',
@@ -25,7 +26,8 @@ const products: Product[] = [
     image: require('../assets/img/monitor.jpeg'),
     userId: 'user456',
     amountTaken: 3,
-    onSale: false,
+    onSale: true,
+    oldPrice: 109.99,
   },
   {
     id: '3',

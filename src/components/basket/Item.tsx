@@ -14,13 +14,23 @@ import products from '../../utils/products'
 
 const Item = () => {
   const renderItem: ListRenderItem<Product> = ({ item, index }) => {
+    const isOnSale = item.onSale
+    const discountPercentage = isOnSale
+      ? Math.round(
+          (((item.oldPrice ?? item.price) - item.price) /
+            (item.oldPrice ?? item.price)) *
+            100
+        )
+      : 0
+
     return (
       <View
-        style={
+        style={[
           index + 1 === products.length
             ? styles.lastItemStyle
-            : styles.containerStyle
-        }
+            : styles.containerStyle,
+          isOnSale && styles.onSaleStyle,
+        ]}
       >
         <Image source={item.image} style={styles.imageStyle} />
 
@@ -28,15 +38,45 @@ const Item = () => {
           <Text style={[globalStyles.retroMessage, { textAlign: 'left' }]}>
             {item.title}
           </Text>
+
+          {isOnSale && (
+            <Text style={styles.discountTag}>{discountPercentage}% OFF</Text>
+          )}
+
           <View style={styles.priceStyle}>
-            <Text
-              style={[
-                globalStyles.retroMessage,
-                { textAlign: 'left', marginVertical: 0 },
-              ]}
-            >
-              ${item.price}
-            </Text>
+            {isOnSale ? (
+              <>
+                <Text
+                  style={[
+                    globalStyles.retroMessage,
+                    {
+                      textAlign: 'left',
+                      marginVertical: 0,
+                      textDecorationLine: 'line-through',
+                    },
+                  ]}
+                >
+                  ${item.oldPrice}
+                </Text>
+                <Text
+                  style={[
+                    globalStyles.retroMessage,
+                    { textAlign: 'left', marginVertical: 0, color: '#FF4500' },
+                  ]}
+                >
+                  ${item.price}
+                </Text>
+              </>
+            ) : (
+              <Text
+                style={[
+                  globalStyles.retroMessage,
+                  { textAlign: 'left', marginVertical: 0 },
+                ]}
+              >
+                ${item.price}
+              </Text>
+            )}
           </View>
         </View>
 
@@ -81,6 +121,7 @@ const Item = () => {
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   containerStyle: {
     flexDirection: 'row',
@@ -105,16 +146,28 @@ const styles = StyleSheet.create({
   },
   priceStyle: {
     backgroundColor: '#ddd',
-    width: 40,
+    width: 60,
     alignItems: 'center',
     marginTop: 3,
     borderRadius: 3,
+    padding: 2,
   },
   counterStyle: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+  },
+  onSaleStyle: {
+    backgroundColor: '#e1e1e1',
+    borderColor: '#8b8b8b',
+    borderWidth: 1,
+  },
+  discountTag: {
+    fontSize: 12,
+    fontFamily: 'HACKED',
+    color: '#FF4500',
+    marginBottom: 5,
   },
 })
 
