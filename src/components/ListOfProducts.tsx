@@ -61,9 +61,23 @@ const ListOfProducts = ({ navigation }: Props) => {
       <View
         style={[styles.productCard, { width: screenWidth / numColumns - 20 }]}
       >
+        {item.onSale && (
+          <View style={styles.saleBadge}>
+            <Text style={styles.saleBadgeText}>¡Oferta!</Text>
+          </View>
+        )}
         <Image source={item.image} style={styles.productImage} />
         <Text style={globalStyles.retroTitle}>{item.title}</Text>
-        <Text style={globalStyles.retroHeader}>${item.price}</Text>
+
+        {item.onSale ? (
+          <View style={styles.priceContainer}>
+            <Text style={styles.oldPrice}>$42</Text>
+            <Text style={styles.newPrice}>${item.price}</Text>
+          </View>
+        ) : (
+          <Text style={globalStyles.retroHeader}>${item.price}</Text>
+        )}
+
         <RetroButton
           title="Comprar ahora"
           onPress={() => {
@@ -131,6 +145,40 @@ const styles = StyleSheet.create({
     height: 100,
     resizeMode: 'contain',
     marginBottom: 10,
+  },
+  saleBadge: {
+    position: 'absolute',
+    top: -10,
+    left: -2,
+    backgroundColor: '#FF4500',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#FFF',
+    zIndex: 1,
+  },
+  saleBadgeText: {
+    color: '#FFF',
+    fontFamily: 'HACKED',
+    fontSize: 12,
+    textTransform: 'uppercase',
+  },
+  priceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  oldPrice: {
+    fontFamily: 'HACKED',
+    fontSize: 18,
+    textDecorationLine: 'line-through',
+    marginRight: 10,
+  },
+  newPrice: {
+    fontFamily: 'HACKED',
+    color: '#FF4500',
+    fontSize: 24,
   },
 })
 

@@ -12,6 +12,7 @@ const products: Product[] = [
     image: require('../assets/img/keybord.jpeg'),
     userId: 'user123',
     amountTaken: 1,
+    onSale: false,
   },
   {
     id: '2',
@@ -24,6 +25,7 @@ const products: Product[] = [
     image: require('../assets/img/monitor.jpeg'),
     userId: 'user456',
     amountTaken: 3,
+    onSale: false,
   },
   {
     id: '3',
@@ -36,6 +38,7 @@ const products: Product[] = [
     image: require('../assets/img/mouse.jpeg'),
     userId: 'user789',
     amountTaken: 1,
+    onSale: false,
   },
   {
     id: '4',
@@ -48,6 +51,7 @@ const products: Product[] = [
     image: require('../assets/img/monitor.jpeg'),
     userId: 'user123',
     amountTaken: 5,
+    onSale: false,
   },
   {
     id: '5',
@@ -60,6 +64,8 @@ const products: Product[] = [
     image: require('../assets/img/keybord.jpeg'),
     userId: 'user456',
     amountTaken: 2,
+    oldPrice: 45.99,
+    onSale: true,
   },
 ]
 

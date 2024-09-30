@@ -10,4 +10,6 @@ export interface Product {
   title: string
   amountTaken: number
   userId: string
+  onSale: boolean
+  oldPrice?: Double
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 import {
   View,
   Text,
@@ -22,12 +22,49 @@ const ProductDetail = () => {
   const { frontAnimatedStyle, backAnimatedStyle, handleFlip } =
     useFlipAnimation()
 
+  // Animación de escala para el tag "¡Oferta!"
+  const offerAnimatedValue = new Animated.Value(1)
+
+  useEffect(() => {
+    Animated.timing(offerAnimatedValue, {
+      toValue: 1.2, // Zoom del tag de oferta
+      duration: 400,
+      useNativeDriver: true,
+    }).start(() => {
+      Animated.timing(offerAnimatedValue, {
+        toValue: 1, // Vuelve al tamaño original
+        duration: 400,
+        useNativeDriver: true,
+      }).start()
+    })
+  }, [handleFlip])
+
   return (
     <ScrollView style={styles.container}>
       {/* Imagen del Producto con Animación */}
       <PressableOpacity onPress={handleFlip} style={styles.imageContainer}>
+        {product.onSale && (
+          <Animated.View
+            style={[
+              styles.saleBadge,
+              {
+                transform: [
+                  { rotate: '-45deg' },
+                  { scale: offerAnimatedValue },
+                ],
+              },
+            ]}
+          >
+            <Text style={styles.saleBadgeText}>¡Oferta!</Text>
+          </Animated.View>
+        )}
+
         <Animated.View
-          style={[styles.productImageContainer, frontAnimatedStyle]}
+          style={[
+            styles.productImageContainer,
+            frontAnimatedStyle,
+            { borderColor: '#FFF' },
+          ]}
         >
           <Image source={product.image} style={styles.productImage} />
         </Animated.View>
@@ -57,6 +94,7 @@ const ProductDetail = () => {
               ))}
             </View>
             <Text style={[globalStyles.retroTitle, { color: '#FFF' }]}>
+              {' '}
               (4 Reviews)
             </Text>
           </View>
@@ -68,19 +106,18 @@ const ProductDetail = () => {
         <Text style={[globalStyles.retroHeader, { color: '#FFF' }]}>
           {product.title}
         </Text>
-        <Text
-          style={[
-            globalStyles.retroHeader,
-            { textAlign: 'left', color: '#FFF' },
-          ]}
-        >
-          {product.title}
-        </Text>
 
         {/* Calificación y Precio */}
-        <View style={styles.ratingPriceContainer}>
-          <Text style={styles.priceText}>${product.price}</Text>
-        </View>
+        {product.onSale ? (
+          <View style={styles.ratingPriceContainer}>
+            <Text style={styles.oldPrice}>${product.oldPrice}</Text>
+            <Text style={styles.newPrice}>${product.price}</Text>
+          </View>
+        ) : (
+          <View style={styles.ratingPriceContainer}>
+            <Text>${product.price}</Text>
+          </View>
+        )}
 
         {/* Selección de Talla */}
         <Text
@@ -174,24 +211,12 @@ const styles = StyleSheet.create({
   ratingBackContainer: {
     alignItems: 'center',
   },
-  ratingBackText: {
-    fontSize: 20,
-    color: '#FFF',
-    marginBottom: 8,
-    fontFamily: 'HACKED',
-  },
   starsContainer: {
     flexDirection: 'row',
   },
   star: {
     fontSize: 24,
     marginRight: 4,
-  },
-  reviewsText: {
-    fontSize: 14,
-    color: '#FFF',
-    marginTop: 8,
-    fontFamily: 'HACKED',
   },
   infoContainer: {
     paddingHorizontal: 16,
@@ -207,14 +232,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 8,
     alignItems: 'center',
-  },
-  priceText: {
-    fontSize: 22,
-    color: '#FFF',
-    fontFamily: 'HACKED',
-    textShadowColor: '#000',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 1,
   },
   sizeOptionsContainer: {
     flexDirection: 'row',
@@ -258,6 +275,33 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
     borderColor: '#FF66FF',
+  },
+  saleBadge: {
+    position: 'absolute',
+    top: -5,
+    left: -1,
+    backgroundColor: '#FF4500',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    zIndex: 1,
+  },
+  saleBadgeText: {
+    color: '#FFF',
+    fontFamily: 'HACKED',
+    fontSize: 16,
+    textTransform: 'uppercase',
+  },
+  oldPrice: {
+    fontFamily: 'HACKED',
+    fontSize: 18,
+    textDecorationLine: 'line-through',
+    marginRight: 10,
+  },
+  newPrice: {
+    fontFamily: 'HACKED',
+    color: '#FF4500',
+    fontSize: 24,
   },
 })
 
