@@ -8,7 +8,7 @@ export const useFlipAnimation = () => {
   const handleFlip = () => {
     Animated.timing(flipAnim, {
       toValue: flipped ? 0 : 1,
-      duration: 500,
+      duration: 400,
       useNativeDriver: true,
     }).start(() => {
       setFlipped(!flipped)
@@ -37,6 +37,5 @@ export const useFlipAnimation = () => {
     frontAnimatedStyle,
     backAnimatedStyle,
     handleFlip,
-    flipped,
   }
 }

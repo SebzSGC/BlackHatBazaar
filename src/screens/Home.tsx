@@ -1,6 +1,5 @@
 import {
   CommonActions,
-  NavigationProp,
   useFocusEffect,
 } from '@react-navigation/native'
 import React, { useCallback, useState } from 'react'

@@ -28,6 +28,18 @@ type Props = {
 const ListOfProducts = ({ navigation }: Props) => {
   const [numColumns, setNumColumns] = useState(2)
   const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const [modalVisible, setModalVisible] = useState<boolean>(false)
+
+  const openModal = (product: Product) => {
+    setSelectedProduct(product)
+    setModalVisible(true)
+  }
+
+  const closeModal = () => {
+    setSelectedProduct(null)
+    setModalVisible(false)
+  }
 
   useEffect(() => {
     const updateLayout = () => {
@@ -42,19 +54,6 @@ const ListOfProducts = ({ navigation }: Props) => {
       subscription?.remove()
     }
   }, [])
-
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [modalVisible, setModalVisible] = useState<boolean>(false)
-
-  const openModal = (product: Product) => {
-    setSelectedProduct(product)
-    setModalVisible(true)
-  }
-
-  const closeModal = () => {
-    setSelectedProduct(null)
-    setModalVisible(false)
-  }
 
   const renderItem = ({ item }: { item: Product }) => (
     <PressableOpacity opacity={false} onPress={() => openModal(item)}>
