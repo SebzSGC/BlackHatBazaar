@@ -28,8 +28,6 @@ const Header = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   headerStyle: {
     flex: 0.4,
-    elevation: 2,
-    marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
