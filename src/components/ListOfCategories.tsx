@@ -7,22 +7,42 @@ import {
   ImageBackground,
 } from 'react-native'
 import FlippableProduct from './FlippableProduct'
-import products from '../utils/products'
 import { Product } from '../interfaces/Product'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ViewsParams } from '../types/ViewsParams'
 
-type ListOfCategoriesProp =
-  | StackNavigationProp<ViewsParams, 'ListOfProducts'>
-  | StackNavigationProp<ViewsParams, 'Home'>
+type ListOfCategoriesProp = StackNavigationProp<ViewsParams, 'CategoriesList'>
 
 type Props = {
   navigation: ListOfCategoriesProp
+  imgRute: string
+  randomQuotes: string[]
+  Products: Product[]
 }
 
-const ListOfCategories = ({ navigation }: Props) => {
+const ListOfCategories = ({
+  navigation,
+  imgRute,
+  randomQuotes,
+  Products,
+}: Props) => {
   const [numColumns, setNumColumns] = useState(2)
   const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width)
+
+  const getImage = (imgRute: string) => {
+    switch (imgRute) {
+      case 'tecnology':
+        return require('../assets/img/wp_tecnologia.jpg')
+      case 'house':
+        return require('../assets/img/wp_Hogar.jpg')
+      case 'fashion':
+        return require('../assets/img/wp_Moda.jpg')
+      case 'toys':
+        return require('../assets/img/wp_Juegos.jpg')
+      case 'sport':
+        return require('../assets/img/wp_profile.jpg')
+    }
+  }
 
   useEffect(() => {
     const updateLayout = () => {
@@ -41,6 +61,7 @@ const ListOfCategories = ({ navigation }: Props) => {
   const renderItem = ({ item }: { item: Product }) => (
     <View style={{ width: screenWidth / numColumns - 20 }}>
       <FlippableProduct
+        randomQuotes={randomQuotes}
         product={item}
         onPress={() => navigation.navigate('ProductDetail', { product: item })}
         width={screenWidth / numColumns - 20}
@@ -50,13 +71,13 @@ const ListOfCategories = ({ navigation }: Props) => {
 
   return (
     <ImageBackground
-      source={require('../assets/img/wp_tecnologia.jpg')}
+      source={getImage(imgRute)}
       style={styles.background}
       resizeMode="cover"
     >
       <View style={styles.container}>
         <FlatList
-          data={products}
+          data={Products}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
           key={numColumns.toString()}

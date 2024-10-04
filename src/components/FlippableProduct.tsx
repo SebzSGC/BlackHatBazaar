@@ -16,27 +16,23 @@ interface ProductProps {
   product: Product
   onPress: () => void
   width: number
+  randomQuotes: string[]
 }
 
-const FlippableProduct = ({ product, onPress, width }: ProductProps) => {
+const FlippableProduct = ({
+  product,
+  onPress,
+  width,
+  randomQuotes,
+}: ProductProps) => {
   const { frontAnimatedStyle, backAnimatedStyle, handleFlip } =
     useFlipAnimation()
 
   const [randomContent, setRandomContent] = useState<string>('')
 
-  const randomItems = [
-    '💡 Fun Fact: Did you know this product is eco-friendly?',
-    '✨ Limited Edition!',
-    '🎉 Special Offer Just for You!',
-    '📦 Fast shipping available!',
-    '🛠 Built with precision and care.',
-    '🔥 Top seller this month!',
-    '🌟 Highly recommended by experts!',
-  ]
-
   const handleFlipWithContent = () => {
-    const randomIndex = Math.floor(Math.random() * randomItems.length)
-    setRandomContent(randomItems[randomIndex])
+    const randomIndex = Math.floor(Math.random() * randomQuotes.length)
+    setRandomContent(randomQuotes[randomIndex])
     handleFlip()
   }
 

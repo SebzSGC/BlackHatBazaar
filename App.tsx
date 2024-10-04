@@ -16,7 +16,11 @@ import RetroProfile from './src/screens/RetroProfile'
 import ProductDetail from './src/screens/ProductDetail'
 import Categories from './src/components/Categories'
 import CartShop from './src/screens/CartShop'
-import Ofert from './src/components/Ofert'
+import Tecnology from './src/components/Categories/Tecnology'
+import Fashion from './src/components/Categories/Fashion'
+import House from './src/components/Categories/House'
+import Sport from './src/components/Categories/Sport'
+import Toys from './src/components/Categories/Toys'
 
 function App() {
   return (
@@ -59,8 +63,28 @@ function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Ofert"
-            component={Ofert}
+            name="Tecnology"
+            component={Tecnology}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Fashion"
+            component={Fashion}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="House"
+            component={House}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Toys"
+            component={Toys}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Sport"
+            component={Sport}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
