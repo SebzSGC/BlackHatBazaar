@@ -15,8 +15,14 @@ import RetroData from '../components/icons/RetroData'
 import RetroBoughts from '../components/icons/RetroBoughts'
 import globalStyles from '../styles/Global'
 import PressableOpacity from '../components/PressableOpacity'
+import purchases from '../utils/purchases'
+import { NavigationProp } from '@react-navigation/native'
 
-const RetroProfile: React.FC = () => {
+interface RetroProfileProps {
+  navigation: NavigationProp<any>
+}
+
+const RetroProfile = ({ navigation }: RetroProfileProps) => {
   const booleano = false
   return (
     <View style={styles.container}>
@@ -54,7 +60,12 @@ const RetroProfile: React.FC = () => {
               </View>
             </View>
           </View>
-          <PressableOpacity style={styles.profileBoxShadow}>
+          <PressableOpacity
+            style={styles.profileBoxShadow}
+            onPress={() => {
+              navigation.navigate('PurchasesList', { purchases })
+            }}
+          >
             <View style={styles.cardIn}>
               <Text style={styles.cardHeader}>Mis compras</Text>
               <Text style={styles.iconText}>
@@ -62,7 +73,12 @@ const RetroProfile: React.FC = () => {
               </Text>
             </View>
           </PressableOpacity>
-          <PressableOpacity style={styles.profileBoxShadow}>
+          <PressableOpacity
+            style={styles.profileBoxShadow}
+            onPress={() => {
+              navigation.navigate('ProfileInfo')
+            }}
+          >
             <View style={styles.cardIn}>
               <Text style={styles.cardHeader}>Mis datos</Text>
               <Text style={styles.iconText}>

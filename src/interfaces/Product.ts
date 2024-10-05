@@ -13,3 +13,11 @@ export interface Product {
   onSale: boolean
   oldPrice?: Double
 }
+
+export interface Purchase {
+  id: Product['id']
+  product: Product
+  quantity: number
+  totalPrice: number
+  date: string
+}

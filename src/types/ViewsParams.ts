@@ -1,4 +1,4 @@
-import { Product } from '../interfaces/Product'
+import { Product, Purchase } from '../interfaces/Product'
 import { User } from '../interfaces/User'
 
 export type ViewsParams = {
@@ -20,4 +20,6 @@ export type ViewsParams = {
   House: undefined
   Toys: undefined
   Sport: undefined
+  PurchasesList: { purchases: Purchase[] }
+  ProfileInfo: undefined
 }

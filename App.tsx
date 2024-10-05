@@ -21,6 +21,8 @@ import Fashion from './src/components/Categories/Fashion'
 import House from './src/components/Categories/House'
 import Sport from './src/components/Categories/Sport'
 import Toys from './src/components/Categories/Toys'
+import PurchasesList from './src/components/Profileitems/PurchasesList'
+import ProfileInfo from './src/components/Profileitems/profileInfo'
 
 function App() {
   return (
@@ -85,6 +87,16 @@ function App() {
           <Stack.Screen
             name="Sport"
             component={Sport}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PurchasesList"
+            component={PurchasesList}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ProfileInfo"
+            component={ProfileInfo}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
