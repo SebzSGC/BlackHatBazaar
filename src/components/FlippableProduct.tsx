@@ -37,45 +37,53 @@ const FlippableProduct = ({
   }
 
   return (
-    <TouchableOpacity onPress={handleFlipWithContent}>
-      <Animated.View
-        style={[styles.productCard, { width }, frontAnimatedStyle]}
-      >
-        {product.onSale && (
-          <View style={styles.saleBadge}>
-            <Text style={styles.saleBadgeText}>¡Oferta!</Text>
-          </View>
-        )}
-        <Image source={product.image} style={styles.productImage} />
-        <Text style={globalStyles.retroTitle}>{product.title}</Text>
+    <View>
+      {/* El TouchableOpacity para manejar el flip */}
+      <TouchableOpacity onPress={handleFlipWithContent}>
+        {/* Parte frontal */}
+        <Animated.View
+          style={[styles.productCard, { width }, frontAnimatedStyle]}
+        >
+          {product.onSale && (
+            <View style={styles.saleBadge}>
+              <Text style={styles.saleBadgeText}>¡Oferta!</Text>
+            </View>
+          )}
+          <Image source={product.image} style={styles.productImage} />
+          <Text style={globalStyles.retroTitle}>{product.title}</Text>
 
-        {product.onSale ? (
-          <View style={styles.priceContainer}>
-            <Text style={styles.oldPrice}>$42</Text>
-            <Text style={styles.newPrice}>${product.price}</Text>
-          </View>
-        ) : (
-          <Text style={globalStyles.retroHeader}>${product.price}</Text>
-        )}
-
-        <RetroButton title="Comprar ahora" onPress={onPress} />
-      </Animated.View>
-
-      <Animated.View
-        style={[
-          styles.productCard,
-          { width },
-          styles.cardBack,
-          backAnimatedStyle,
-        ]}
-      >
-        <Animated.View style={styles.randomContentContainer}>
-          <Text style={[globalStyles.retroTitle, styles.randomContentText]}>
-            {randomContent}
-          </Text>
+          {product.onSale ? (
+            <View style={styles.priceContainer}>
+              <Text style={styles.oldPrice}>$42</Text>
+              <Text style={styles.newPrice}>${product.price}</Text>
+            </View>
+          ) : (
+            <Text style={globalStyles.retroHeader}>${product.price}</Text>
+          )}
         </Animated.View>
-      </Animated.View>
-    </TouchableOpacity>
+
+        {/* Parte trasera */}
+        <Animated.View
+          style={[
+            styles.productCard,
+            { width },
+            styles.cardBack,
+            backAnimatedStyle,
+          ]}
+        >
+          <Animated.View style={styles.randomContentContainer}>
+            <Text style={[globalStyles.retroTitle, styles.randomContentText]}>
+              {randomContent}
+            </Text>
+          </Animated.View>
+        </Animated.View>
+      </TouchableOpacity>
+
+      {/* Botón de "Comprar ahora" separado del flip */}
+      <View style={styles.buttonContainer}>
+        <RetroButton title="Comprar ahora" onPress={onPress} />
+      </View>
+    </View>
   )
 }
 
@@ -155,6 +163,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     padding: 20,
     fontFamily: 'Jersey10-Regular',
+  },
+  buttonContainer: {
+    marginTop: 10,
+    alignItems: 'center',
   },
 })
 
