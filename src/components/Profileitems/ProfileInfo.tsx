@@ -1,9 +1,7 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native'
-import { useRoute } from '@react-navigation/native'
-import globalStyles from '../../styles/Global'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import RetroButton from '../RetroButton'
-import PurchasesList from './PurchasesList'
+
 //import { User, Purchase } from '../../interfaces/Product'
 
 // Simulación de datos del usuario

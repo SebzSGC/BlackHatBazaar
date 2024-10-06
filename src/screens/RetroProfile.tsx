@@ -86,7 +86,12 @@ const RetroProfile = ({ navigation }: RetroProfileProps) => {
               </Text>
             </View>
           </PressableOpacity>
-          <PressableOpacity style={styles.profileBoxShadow}>
+          <PressableOpacity
+            style={styles.profileBoxShadow}
+            onPress={() => {
+              navigation.navigate('FavoriteProducts')
+            }}
+          >
             <View style={styles.cardIn}>
               <Text style={styles.cardHeader}>Mis favoritos</Text>
               <Text style={styles.iconText}>

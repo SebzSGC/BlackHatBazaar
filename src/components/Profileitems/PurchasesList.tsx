@@ -2,7 +2,6 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, FlatList } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import globalStyles from '../../styles/Global'
-import RetroButton from '../RetroButton'
 import { Purchase } from '../../interfaces/Product'
 
 const PurchasesList = () => {
