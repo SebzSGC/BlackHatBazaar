@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import { RouteProp, useRoute } from '@react-navigation/native'
 import { ViewsParams } from '../types/ViewsParams'
 import { useFlipAnimation } from '../hooks/useFlipAnimation'
 import globalStyles from '../styles/Global'
+import ProductReviews from '../components/ProductReviews'
 
 const ProductDetail = () => {
   const route = useRoute<RouteProp<ViewsParams, 'ProductDetail'>>()
@@ -38,6 +39,11 @@ const ProductDetail = () => {
       }).start()
     })
   }, [handleFlip])
+
+  // Estado para manejar la pestaña activa
+  const [activeTab, setActiveTab] = useState<'description' | 'reviews'>(
+    'description'
+  )
 
   return (
     <ScrollView style={styles.container}>
@@ -78,7 +84,7 @@ const ProductDetail = () => {
         >
           <View style={styles.ratingBackContainer}>
             <Text style={[globalStyles.retroTitle, { color: '#FFF' }]}>
-              Rating: 4
+              Calificaciones: 4
             </Text>
             <View style={styles.starsContainer}>
               {Array.from({ length: 5 }).map((_, index) => (
@@ -119,41 +125,38 @@ const ProductDetail = () => {
           </View>
         )}
 
-        {/* Selección de Talla */}
-        <Text
-          style={[
-            globalStyles.retroHeader,
-            { color: '#FFF', textAlign: 'left' },
-          ]}
-        >
-          Select Size (Age Group)
-        </Text>
-        <View style={styles.sizeOptionsContainer}>
-          <PressableOpacity style={styles.sizeOption}>
-            <Text style={globalStyles.retroMessage}>New Born</Text>
+        {/* Descripción y Reseñas - Sistema de pestañas */}
+        <View style={styles.tabContainer}>
+          <PressableOpacity
+            style={[
+              styles.tabButton,
+              activeTab === 'description' && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab('description')}
+          >
+            <Text style={[globalStyles.retroHeader, { color: '#FFF' }]}>
+              Descripción
+            </Text>
           </PressableOpacity>
-          <PressableOpacity style={styles.sizeOption}>
-            <Text style={globalStyles.retroMessage}>Tiny Baby</Text>
-          </PressableOpacity>
-          <PressableOpacity style={styles.sizeOption}>
-            <Text style={globalStyles.retroMessage}>0-3 M</Text>
+          <PressableOpacity
+            style={[
+              styles.tabButton,
+              activeTab === 'reviews' && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab('reviews')}
+          >
+            <Text style={[globalStyles.retroHeader, { color: '#FFF' }]}>
+              Reseñas
+            </Text>
           </PressableOpacity>
         </View>
 
-        {/* Descripción y Reseñas */}
-        <View style={styles.tabContainer}>
-          <PressableOpacity style={styles.tabButton}>
-            <Text style={[globalStyles.retroHeader, { color: '#FFF' }]}>
-              Description
-            </Text>
-          </PressableOpacity>
-          <PressableOpacity style={styles.tabButton}>
-            <Text style={[globalStyles.retroHeader, { color: '#FFF' }]}>
-              Reviews
-            </Text>
-          </PressableOpacity>
-        </View>
-        <Text style={styles.descriptionText}>{product.description}</Text>
+        {/* Contenido dinámico de las pestañas */}
+        {activeTab === 'description' ? (
+          <Text style={styles.descriptionText}>{product.description}</Text>
+        ) : (
+          <ProductReviews />
+        )}
 
         {/* Botones */}
         <View style={styles.buttonContainer}>
@@ -233,18 +236,6 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     alignItems: 'center',
   },
-  sizeOptionsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginVertical: 12,
-  },
-  sizeOption: {
-    padding: 10,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: '#FFF',
-    backgroundColor: '#333',
-  },
   tabContainer: {
     flexDirection: 'row',
     marginVertical: 16,
@@ -255,6 +246,10 @@ const styles = StyleSheet.create({
   tabButton: {
     padding: 10,
     alignItems: 'center',
+  },
+  activeTab: {
+    borderBottomWidth: 3,
+    borderBottomColor: '#FF66FF',
   },
   descriptionText: {
     fontSize: 14,
@@ -297,6 +292,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textDecorationLine: 'line-through',
     marginRight: 10,
+    color: '#FFF',
   },
   newPrice: {
     fontFamily: 'HACKED',
