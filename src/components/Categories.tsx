@@ -2,10 +2,16 @@ import React from 'react'
 import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native'
 import RetroButton from './RetroButton'
 import globalStyles from '../styles/Global'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { ViewsParams } from '../types/ViewsParams'
 
 type Category = {
   id: string
   name: string
+}
+
+type CategoriesProps = {
+  navigation: StackNavigationProp<ViewsParams, 'Home'>
 }
 
 const categories: Category[] = [
@@ -16,9 +22,30 @@ const categories: Category[] = [
   { id: '5', name: 'Deportes' },
 ]
 
-const Categories = () => {
+const Categories = ({ navigation }: CategoriesProps) => {
   const renderItem = ({ item }: { item: Category }) => (
-    <RetroButton style={styles.categoryButton}>
+    <RetroButton
+      onPress={() => {
+        switch (item.id) {
+          case '1':
+            navigation.navigate('Tecnology')
+            break
+          case '2':
+            navigation.navigate('House')
+            break
+          case '3':
+            navigation.navigate('Fashion')
+            break
+          case '4':
+            navigation.navigate('Toys')
+            break
+          case '5':
+            navigation.navigate('Sport')
+            break
+        }
+      }}
+      style={styles.categoryButton}
+    >
       <Text
         style={[
           globalStyles.retroHeader,

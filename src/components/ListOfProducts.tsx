@@ -6,52 +6,40 @@ import {
   FlatList,
   StyleSheet,
   Dimensions,
-  TouchableOpacity,
   ImageBackground,
 } from 'react-native'
 import RetroButton from '../components/RetroButton'
 import RetroInfoModal from '../components/RetroInfoModal'
 import globalStyles from '../styles/Global'
-import { NavigationProp } from '@react-navigation/native'
-import Product from '../interfaces/Product'
+import { Product } from '../interfaces/Product'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { ViewsParams } from '../types/ViewsParams'
+import products from '../utils/products'
+import PressableOpacity from '../components/PressableOpacity'
 
-type ListOfProductsProps = {
-  navigation: NavigationProp<any>
+type ListOfProductsProp =
+  | StackNavigationProp<ViewsParams, 'ListOfProducts'>
+  | StackNavigationProp<ViewsParams, 'Home'>
+
+type Props = {
+  navigation: ListOfProductsProp
 }
 
-const products: Product[] = [
-  {
-    id: '1',
-    title: 'Retro Keyboard',
-    price: '$80',
-    image: require('../assets/img/keybord.jpeg'),
-    description: 'This is a vintage keyboard from the 80s',
-    category: 'Electronics',
-    stock: 'Available',
-  },
-  {
-    id: '2',
-    title: 'Vintage Monitor',
-    price: '$150',
-    image: require('../assets/img/monitor.jpeg'),
-    description: 'This is a vintage monitor from the 80s',
-    category: 'Electronics',
-    stock: 'Available',
-  },
-  {
-    id: '3',
-    title: 'Classic Mouse',
-    price: '$20',
-    image: require('../assets/img/mouse.jpeg'),
-    description: 'This is a vintage mouse from the 80s',
-    category: 'Electronics',
-    stock: 'Available',
-  },
-]
-
-const ListOfProducts = ({ navigation }: ListOfProductsProps) => {
+const ListOfProducts = ({ navigation }: Props) => {
   const [numColumns, setNumColumns] = useState(2)
   const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const [modalVisible, setModalVisible] = useState<boolean>(false)
+
+  const openModal = (product: Product) => {
+    setSelectedProduct(product)
+    setModalVisible(true)
+  }
+
+  const closeModal = () => {
+    setSelectedProduct(null)
+    setModalVisible(false)
+  }
 
   useEffect(() => {
     const updateLayout = () => {
@@ -67,35 +55,36 @@ const ListOfProducts = ({ navigation }: ListOfProductsProps) => {
     }
   }, [])
 
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [modalVisible, setModalVisible] = useState<boolean>(false)
-
-  const openModal = (product: Product) => {
-    setSelectedProduct(product)
-    setModalVisible(true)
-  }
-
-  const closeModal = () => {
-    setSelectedProduct(null)
-    setModalVisible(false)
-  }
-
   const renderItem = ({ item }: { item: Product }) => (
-    <TouchableOpacity onPress={() => openModal(item)}>
+    <PressableOpacity opacity={false} onPress={() => openModal(item)}>
       <View
         style={[styles.productCard, { width: screenWidth / numColumns - 20 }]}
       >
+        {item.onSale && (
+          <View style={styles.saleBadge}>
+            <Text style={styles.saleBadgeText}>¡Oferta!</Text>
+          </View>
+        )}
         <Image source={item.image} style={styles.productImage} />
         <Text style={globalStyles.retroTitle}>{item.title}</Text>
-        <Text style={globalStyles.retroHeader}>{item.price}</Text>
+
+        {item.onSale ? (
+          <View style={styles.priceContainer}>
+            <Text style={styles.oldPrice}>$42</Text>
+            <Text style={styles.newPrice}>${item.price}</Text>
+          </View>
+        ) : (
+          <Text style={globalStyles.retroHeader}>${item.price}</Text>
+        )}
+
         <RetroButton
           title="Comprar ahora"
           onPress={() => {
-            navigation.navigate('ProductDetail')
+            navigation.navigate('ProductDetail', { product: item })
           }}
         />
       </View>
-    </TouchableOpacity>
+    </PressableOpacity>
   )
 
   return (
@@ -155,6 +144,40 @@ const styles = StyleSheet.create({
     height: 100,
     resizeMode: 'contain',
     marginBottom: 10,
+  },
+  saleBadge: {
+    position: 'absolute',
+    top: -10,
+    left: -2,
+    backgroundColor: '#FF4500',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#FFF',
+    zIndex: 1,
+  },
+  saleBadgeText: {
+    color: '#FFF',
+    fontFamily: 'HACKED',
+    fontSize: 12,
+    textTransform: 'uppercase',
+  },
+  priceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  oldPrice: {
+    fontFamily: 'HACKED',
+    fontSize: 18,
+    textDecorationLine: 'line-through',
+    marginRight: 10,
+  },
+  newPrice: {
+    fontFamily: 'HACKED',
+    color: '#FF4500',
+    fontSize: 24,
   },
 })
 

@@ -1,16 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  Keyboard,
-  TouchableOpacity,
-} from 'react-native'
+import { View, Text, Keyboard } from 'react-native'
 import { NavigationProp } from '@react-navigation/native'
 import LookUp from './icons/LookUp'
 import Chest from './icons/Chest'
 import Cart from './icons/Cart'
 import { TextInput } from 'react-native-gesture-handler'
+import globalStyles from '../styles/Global'
+import products from '../utils/products'
+import PressableOpacity from './PressableOpacity'
 
 type BottomNavBarProps = {
   navigation: NavigationProp<any>
@@ -48,30 +45,30 @@ const BottomNavBar = ({ navigation }: BottomNavBarProps) => {
   }
 
   return (
-    <View style={styles.navBar}>
-      <TouchableOpacity onPress={handleSearchPress}>
-        <View style={styles.navItem}>
+    <View style={globalStyles.navBar}>
+      <PressableOpacity onPress={handleSearchPress}>
+        <View style={globalStyles.navItem}>
           <LookUp />
-          <Text style={styles.navText}>Buscar</Text>
         </View>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <View style={styles.navItem}>
-          <Cart />
-          <Text style={styles.navText}>Carrito</Text>
+        <Text style={globalStyles.navText}>Buscar</Text>
+      </PressableOpacity>
+      <PressableOpacity onPress={() => navigation.navigate('CartShop')}>
+        <View style={globalStyles.navItem}>
+          <Cart cart={products} />
+          <Text style={globalStyles.navText}>Carrito</Text>
         </View>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
-        <View style={styles.navItem}>
+      </PressableOpacity>
+      <PressableOpacity onPress={() => navigation.navigate('Categories')}>
+        <View style={globalStyles.navItem}>
           <Chest />
-          <Text style={styles.navText}>Categorías</Text>
         </View>
-      </TouchableOpacity>
+        <Text style={globalStyles.navText}>Categorías</Text>
+      </PressableOpacity>
       {isSearchVisible && (
-        <View style={styles.searchContainer}>
+        <View style={globalStyles.searchContainer}>
           <TextInput
             ref={searchInputRef}
-            style={styles.searchInput}
+            style={globalStyles.searchInput}
             placeholder="Escribe tu producto..x_x"
             value={searchText}
             onChangeText={setSearchText}
@@ -82,49 +79,4 @@ const BottomNavBar = ({ navigation }: BottomNavBarProps) => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  navBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#E0E0E0',
-    paddingVertical: 15,
-    borderTopWidth: 2,
-    borderTopColor: '#B0B0B0',
-    position: 'relative',
-  },
-  navItem: {
-    alignItems: 'center',
-  },
-  navText: {
-    marginTop: 5,
-    fontSize: 14,
-    color: '#4D4D4D',
-    fontFamily: 'Jersey10-Regular',
-  },
-  searchContainer: {
-    position: 'absolute',
-    top: -60,
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-    paddingBottom: 10,
-  },
-  searchInput: {
-    height: 40,
-    width: '90%',
-    borderColor: '#B0B0B0',
-    borderWidth: 2,
-    borderRadius: 20,
-    paddingHorizontal: 15,
-    backgroundColor: '#F5F5F5',
-    color: '#4D4D4D',
-    fontFamily: 'Jersey10-Regular',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-  },
-})
-
 export default BottomNavBar

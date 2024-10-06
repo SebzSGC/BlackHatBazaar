@@ -1,11 +1,7 @@
 import React from 'react'
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  GestureResponderEvent,
-} from 'react-native'
+import { View, StyleSheet, GestureResponderEvent } from 'react-native'
 import globalStyles from '../styles/Global'
+import PressableOpacity from './PressableOpacity'
 
 interface HamburgerMenuProps {
   onPress: (event?: GestureResponderEvent) => void
@@ -15,11 +11,11 @@ interface HamburgerMenuProps {
 const HamburgerMenu = ({ children, onPress }: HamburgerMenuProps) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={globalStyles.hamburgerButton} onPress={onPress}>
+      <PressableOpacity style={globalStyles.hamburgerButton} onPress={onPress}>
         <View style={globalStyles.hamburgerLine} />
         <View style={globalStyles.hamburgerLine} />
         <View style={globalStyles.hamburgerLine} />
-      </TouchableOpacity>
+      </PressableOpacity>
       {children}
     </View>
   )

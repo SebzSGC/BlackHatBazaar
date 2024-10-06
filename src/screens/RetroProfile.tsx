@@ -6,7 +6,7 @@ import {
   Platform,
   ScrollView,
   Image,
-  TouchableOpacity,
+  ImageBackground,
 } from 'react-native'
 import RetroBell from '../components/icons/RetroBell'
 import RetroSupport from '../components/icons/RetroSupport'
@@ -14,76 +14,109 @@ import RetroHearth from '../components/icons/RetroHearth'
 import RetroData from '../components/icons/RetroData'
 import RetroBoughts from '../components/icons/RetroBoughts'
 import globalStyles from '../styles/Global'
+import PressableOpacity from '../components/PressableOpacity'
+import purchases from '../utils/purchases'
+import { NavigationProp } from '@react-navigation/native'
 
-const RetroProfile: React.FC = () => {
+interface RetroProfileProps {
+  navigation: NavigationProp<any>
+}
+
+const RetroProfile = ({ navigation }: RetroProfileProps) => {
   const booleano = false
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.welcome}>Mi Perfil</Text>
-        <TouchableOpacity>
+        <PressableOpacity>
           <Text style={globalStyles.retroButtonText}>
             <RetroBell fill={booleano ? '#FF0000' : '#000'} />
           </Text>
-        </TouchableOpacity>
+        </PressableOpacity>
       </View>
-      <ScrollView style={styles.scrollContainer}>
-        <View style={styles.profileBox}>
-          <View style={styles.cardIn}>
-            <View>
-              <Text style={[globalStyles.retroHeader, { color: '#fff' }]}>
-                nombre
+      <ImageBackground
+        source={require('../assets/img/wp_profile.jpg')}
+        style={styles.background}
+        resizeMode="cover"
+      >
+        <ScrollView style={styles.scrollContainer}>
+          <View style={styles.profileBox}>
+            <View style={styles.cardIn}>
+              <View>
+                <Text style={[globalStyles.retroHeader, { color: '#fff' }]}>
+                  nombre
+                </Text>
+                <Text style={styles.cardDescription}>alias</Text>
+              </View>
+              <View style={styles.imageContainer}>
+                <Image
+                  style={styles.image}
+                  source={{ uri: 'https://picsum.photos/200/301' }}
+                />
+                <View style={styles.glitchEffect} />
+                {[...Array(6)].map((_, i) => (
+                  <View key={i} style={[styles.glitchLines, { top: i * 14 }]} />
+                ))}
+              </View>
+            </View>
+          </View>
+          <PressableOpacity
+            style={styles.profileBoxShadow}
+            onPress={() => {
+              navigation.navigate('PurchasesList', { purchases })
+            }}
+          >
+            <View style={styles.cardIn}>
+              <Text style={styles.cardHeader}>Mis compras</Text>
+              <Text style={styles.iconText}>
+                <RetroBoughts />
               </Text>
-              <Text style={styles.cardDescription}>alias</Text>
             </View>
-            <View style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={{ uri: 'https://picsum.photos/200/301' }}
-              />
-              <View style={styles.glitchEffect} />
-              {[...Array(6)].map((_, i) => (
-                <View key={i} style={[styles.glitchLines, { top: i * 14 }]} />
-              ))}
+          </PressableOpacity>
+          <PressableOpacity
+            style={styles.profileBoxShadow}
+            onPress={() => {
+              navigation.navigate('ProfileInfo', { navigation })
+            }}
+          >
+            <View style={styles.cardIn}>
+              <Text style={styles.cardHeader}>Mis datos</Text>
+              <Text style={styles.iconText}>
+                <RetroData />
+              </Text>
             </View>
+          </PressableOpacity>
+          <PressableOpacity
+            style={styles.profileBoxShadow}
+            onPress={() => {
+              navigation.navigate('FavoriteProducts')
+            }}
+          >
+            <View style={styles.cardIn}>
+              <Text style={styles.cardHeader}>Mis favoritos</Text>
+              <Text style={styles.iconText}>
+                <RetroHearth />
+              </Text>
+            </View>
+          </PressableOpacity>
+          <PressableOpacity
+            style={styles.profileBoxShadow}
+            onPress={() => {
+              navigation.navigate('Support')
+            }}
+          >
+            <View style={styles.cardIn}>
+              <Text style={styles.cardHeader}>Soporte</Text>
+              <Text style={styles.iconText}>
+                <RetroSupport />
+              </Text>
+            </View>
+          </PressableOpacity>
+          <View style={styles.versionText}>
+            <Text style={styles.cardDescription}>BlackHatBazaar</Text>
           </View>
-        </View>
-        <TouchableOpacity style={styles.profileBoxShadow}>
-          <View style={styles.cardIn}>
-            <Text style={styles.cardHeader}>Mis compras</Text>
-            <Text style={styles.iconText}>
-              <RetroBoughts />
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.profileBoxShadow}>
-          <View style={styles.cardIn}>
-            <Text style={styles.cardHeader}>Mis datos</Text>
-            <Text style={styles.iconText}>
-              <RetroData />
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.profileBoxShadow}>
-          <View style={styles.cardIn}>
-            <Text style={styles.cardHeader}>Mis favoritos</Text>
-            <Text style={styles.iconText}>
-              <RetroHearth />
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.profileBoxShadow}>
-          <View style={styles.cardIn}>
-            <Text style={styles.cardHeader}>Soporte</Text>
-            <Text style={styles.iconText}>
-              <RetroSupport />
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <View style={styles.versionText}>
-          <Text style={styles.cardDescription}>BlackHatBazaar</Text>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </ImageBackground>
     </View>
   )
 }
@@ -92,6 +125,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#333',
+  },
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
   },
   scrollContainer: {
     marginTop: 10,

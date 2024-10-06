@@ -51,13 +51,9 @@ const RetroHamburgerMenu = ({ navigation }: RetroHamburgerMenuProps) => {
               </RetroButton>
               <RetroButton
                 style={[styles.menuItem, { marginBottom: 5 }]}
-                onPress={closeMenu}
-              >
-                <Text style={globalStyles.retroButtonText}>Ofertas</Text>
-              </RetroButton>
-              <RetroButton
-                style={[styles.menuItem, { marginBottom: 5 }]}
-                onPress={closeMenu}
+                onPress={() => {
+                  navigation.navigate('Support')
+                }}
               >
                 <Text style={globalStyles.retroButtonText}>
                   Ayuda y Soporte

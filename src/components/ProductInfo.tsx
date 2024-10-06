@@ -1,7 +1,6 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
-import RetroButton from '../components/RetroButton'
-import Product from '../interfaces/Product'
+import { View, Text, StyleSheet } from 'react-native'
+import { Product } from '../interfaces/Product'
 import globalStyles from '../styles/Global'
 
 interface ProductProps {
