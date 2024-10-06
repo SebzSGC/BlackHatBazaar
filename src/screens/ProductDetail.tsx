@@ -135,7 +135,7 @@ const ProductDetail = () => {
             onPress={() => setActiveTab('description')}
           >
             <Text style={[globalStyles.retroHeader, { color: '#FFF' }]}>
-              Descripción
+              Descripcion
             </Text>
           </PressableOpacity>
           <PressableOpacity
@@ -146,7 +146,7 @@ const ProductDetail = () => {
             onPress={() => setActiveTab('reviews')}
           >
             <Text style={[globalStyles.retroHeader, { color: '#FFF' }]}>
-              Reseñas
+              Comentarios
             </Text>
           </PressableOpacity>
         </View>
@@ -166,7 +166,7 @@ const ProductDetail = () => {
             </Text>
           </PressableOpacity>
           <RetroButton
-            title="ADD TO CART"
+            title="AGREGAR AL CARRITO"
             onPress={() => console.log('Add to cart')}
           />
         </View>
