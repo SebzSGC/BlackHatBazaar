@@ -26,4 +26,5 @@ export type ViewsParams = {
   Support: undefined
   Checkout: undefined
   PurchaseComplete: undefined
+  EditInfo: { user: User }
 }

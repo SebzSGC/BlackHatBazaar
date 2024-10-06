@@ -76,7 +76,7 @@ const RetroProfile = ({ navigation }: RetroProfileProps) => {
           <PressableOpacity
             style={styles.profileBoxShadow}
             onPress={() => {
-              navigation.navigate('ProfileInfo')
+              navigation.navigate('ProfileInfo', { navigation })
             }}
           >
             <View style={styles.cardIn}>

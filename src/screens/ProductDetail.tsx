@@ -23,31 +23,28 @@ const ProductDetail = () => {
   const { frontAnimatedStyle, backAnimatedStyle, handleFlip } =
     useFlipAnimation()
 
-  // Animación de escala para el tag "¡Oferta!"
   const offerAnimatedValue = new Animated.Value(1)
 
   useEffect(() => {
     Animated.timing(offerAnimatedValue, {
-      toValue: 1.2, // Zoom del tag de oferta
+      toValue: 1.2,
       duration: 400,
       useNativeDriver: true,
     }).start(() => {
       Animated.timing(offerAnimatedValue, {
-        toValue: 1, // Vuelve al tamaño original
+        toValue: 1,
         duration: 400,
         useNativeDriver: true,
       }).start()
     })
   }, [handleFlip])
 
-  // Estado para manejar la pestaña activa
   const [activeTab, setActiveTab] = useState<'description' | 'reviews'>(
     'description'
   )
 
   return (
     <ScrollView style={styles.container}>
-      {/* Imagen del Producto con Animación */}
       <PressableOpacity onPress={handleFlip} style={styles.imageContainer}>
         {product.onSale && (
           <Animated.View
@@ -107,13 +104,11 @@ const ProductDetail = () => {
         </Animated.View>
       </PressableOpacity>
 
-      {/* Información del Producto */}
       <View style={styles.infoContainer}>
         <Text style={[globalStyles.retroHeader, { color: '#FFF' }]}>
           {product.title}
         </Text>
 
-        {/* Calificación y Precio */}
         {product.onSale ? (
           <View style={styles.ratingPriceContainer}>
             <Text style={styles.oldPrice}>${product.oldPrice}</Text>
@@ -125,7 +120,6 @@ const ProductDetail = () => {
           </View>
         )}
 
-        {/* Descripción y Reseñas - Sistema de pestañas */}
         <View style={styles.tabContainer}>
           <PressableOpacity
             style={[
@@ -151,14 +145,12 @@ const ProductDetail = () => {
           </PressableOpacity>
         </View>
 
-        {/* Contenido dinámico de las pestañas */}
         {activeTab === 'description' ? (
           <Text style={styles.descriptionText}>{product.description}</Text>
         ) : (
           <ProductReviews />
         )}
 
-        {/* Botones */}
         <View style={styles.buttonContainer}>
           <PressableOpacity style={styles.wishlistButton}>
             <Text>

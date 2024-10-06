@@ -1,53 +1,69 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import RetroButton from '../RetroButton'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { ViewsParams } from '../../types/ViewsParams'
+import { CommonActions } from '@react-navigation/native'
+import { useUser } from '../../context/UserContext' // Importamos el hook del contexto
 
-//import { User, Purchase } from '../../interfaces/Product'
+type ProfileInfoProps = {
+  navigation: StackNavigationProp<ViewsParams, 'ProfileInfo'>
+}
 
-// Simulación de datos del usuario
-// const userData: User = {
-//   id: 'user123',
-//   name: 'Sebastian',
-//   email: 'sebastian@example.com',
-//   avatar: require('../assets/img/user-avatar.png'),
-//   shippingAddress: '1234 Cyber Street, Tech City',
-//   paymentMethod: 'Credit Card - **** **** **** 1234',
-// }
+const ProfileInfo = ({ navigation }: ProfileInfoProps) => {
+  // Obtenemos el usuario del contexto global
+  const { user } = useUser()
 
-// const purchasesData: Purchase[] = [
-//   // Aquí puedes incluir tus compras de ejemplo o simuladas, como en el ejemplo anterior
-// ]
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <RetroButton
+          title="Cerrar sesion"
+          style={styles.logoutButton}
+          onPress={() => handleLogout()}
+        />
+      ),
+    })
+  }, [navigation])
 
-const ProfileInfo = () => {
-  //   const route = useRoute()
-  //   const { user = userData, purchases = purchasesData } = route.params || {}
+  const handleLogout = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      })
+    )
+  }
 
   return (
     <View style={styles.container}>
-      {/* Sección de información del usuario */}
       <View style={styles.userInfoContainer}>
-        <Image
-          source={{ uri: 'https://picsum.photos/200/301' }}
-          style={styles.avatar}
-        />
-        <Text style={styles.userName}>Sebas</Text>
-        <Text style={styles.userEmail}>sebas@ejemplo</Text>
+        <Image source={{ uri: user.avatar }} style={styles.avatar} />
+        <Text style={styles.userName}>{user.name}</Text>
+        <Text style={styles.userEmail}>{user.email}</Text>
       </View>
 
-      {/* Dirección de envío y método de pago */}
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitle}>Dirección de Envío</Text>
-        <Text style={styles.sectionText}>crr58G</Text>
+        <Text style={styles.sectionText}>{user.address[0]}</Text>
       </View>
 
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitle}>Método de Pago</Text>
-        <Text style={styles.sectionText}>Debito</Text>
+        <Text style={styles.sectionText}>PSE</Text>
       </View>
 
-      {/* Opciones adicionales como "Editar perfil", "Cerrar sesión", etc. */}
-      <RetroButton title="Editar perfil" />
-      <RetroButton title="Cerrar sesión" style={styles.logoutButton} />
+      <RetroButton
+        title="Editar perfil"
+        onPress={() => {
+          navigation.navigate('EditInfo', { user: user })
+        }}
+      />
+      <RetroButton
+        title="Cerrar sesion"
+        style={styles.logoutButton}
+        onPress={() => handleLogout()}
+      />
     </View>
   )
 }
@@ -87,7 +103,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontFamily: 'Jersey10-Regular',
-    color: '#FFCC00', // Color amarillo para resaltar los títulos
+    color: '#FFCC00',
     marginBottom: 5,
   },
   sectionText: {
@@ -97,7 +113,7 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     marginTop: 20,
-    backgroundColor: '#FF4444', // Botón rojo para cerrar sesión
+    backgroundColor: '#FF4444',
   },
 })
 
