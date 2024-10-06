@@ -2,8 +2,14 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import Total from './Total'
 import RetroButton from '../RetroButton'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { ViewsParams } from '../../types/ViewsParams'
 
-const Footer = () => {
+type FooterProps = {
+  navigation: StackNavigationProp<ViewsParams, 'Checkout'>
+}
+
+const Footer = ({ navigation }: FooterProps) => {
   return (
     <View style={styles.containerStyle}>
       <Total />
@@ -15,6 +21,7 @@ const Footer = () => {
             height: 40,
           }}
           styleText={{ fontSize: 20 }}
+          onPress={() => navigation.navigate('Checkout')}
         />
       </View>
     </View>

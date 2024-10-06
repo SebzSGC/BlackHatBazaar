@@ -3,11 +3,6 @@ import Header from '../components/basket/Header'
 import Item from '../components/basket/Item'
 import Basket from '../components/basket/Basket'
 import Footer from '../components/basket/Footer'
-import { NavigationProp } from '@react-navigation/native'
-
-type Props = {
-  navigation: NavigationProp<any>
-}
 
 export default function CartShop({ navigation }: any) {
   return (
@@ -15,7 +10,7 @@ export default function CartShop({ navigation }: any) {
       <Header navigation={navigation} />
       <Item />
       <Basket />
-      <Footer />
+      <Footer navigation={navigation} />
     </View>
   )
 }

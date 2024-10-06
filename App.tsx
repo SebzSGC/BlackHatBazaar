@@ -25,6 +25,8 @@ import PurchasesList from './src/components/Profileitems/PurchasesList'
 import ProfileInfo from './src/components/Profileitems/ProfileInfo'
 import FavoriteProducts from './src/components/Profileitems/FavoriteProducts'
 import Support from './src/components/Profileitems/Support'
+import Checkout from './src/components/basket/Checkout'
+import PurchaseComplete from './src/components/Loading/PurchaseComplete'
 
 function App() {
   return (
@@ -109,6 +111,16 @@ function App() {
           <Stack.Screen
             name="Support"
             component={Support}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Checkout"
+            component={Checkout}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PurchaseComplete"
+            component={PurchaseComplete}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

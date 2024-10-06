@@ -24,4 +24,6 @@ export type ViewsParams = {
   ProfileInfo: undefined
   FavoriteProducts: undefined
   Support: undefined
+  Checkout: undefined
+  PurchaseComplete: undefined
 }
