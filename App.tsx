@@ -24,6 +24,7 @@ import Toys from './src/components/Categories/Toys'
 import PurchasesList from './src/components/Profileitems/PurchasesList'
 import ProfileInfo from './src/components/Profileitems/ProfileInfo'
 import FavoriteProducts from './src/components/Profileitems/FavoriteProducts'
+import Support from './src/components/Profileitems/Support'
 
 function App() {
   return (
@@ -103,6 +104,11 @@ function App() {
           <Stack.Screen
             name="FavoriteProducts"
             component={FavoriteProducts}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Support"
+            component={Support}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -99,7 +99,12 @@ const RetroProfile = ({ navigation }: RetroProfileProps) => {
               </Text>
             </View>
           </PressableOpacity>
-          <PressableOpacity style={styles.profileBoxShadow}>
+          <PressableOpacity
+            style={styles.profileBoxShadow}
+            onPress={() => {
+              navigation.navigate('Support')
+            }}
+          >
             <View style={styles.cardIn}>
               <Text style={styles.cardHeader}>Soporte</Text>
               <Text style={styles.iconText}>

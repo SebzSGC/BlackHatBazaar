@@ -23,4 +23,5 @@ export type ViewsParams = {
   PurchasesList: { purchases: Purchase[] }
   ProfileInfo: undefined
   FavoriteProducts: undefined
+  Support: undefined
 }
