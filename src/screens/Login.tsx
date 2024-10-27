@@ -1,25 +1,74 @@
-import React, { useState } from 'react'
-import { Text, Image, ScrollView, View } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { Text, Image, ScrollView, View, Alert } from 'react-native'
 import globalStyles from '../styles/Global'
 import RetroInput from '../components/RetroInput'
 import { CommonActions, NavigationProp } from '@react-navigation/native'
 import PressableOpacity from '../components/PressableOpacity'
+import { FirebaseContext } from '../firebase'
+import { useUser } from '../context/UserContext'
 
 type LoginProps = {
   navigation: NavigationProp<any>
 }
 
 const Login = ({ navigation }: LoginProps) => {
+  const { firebase } = useContext(FirebaseContext)
+  const { updateUser } = useUser()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleLogin = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      })
-    )
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Por favor, completa todos los campos.')
+      return
+    }
+
+    try {
+      const snapshot = await firebase.db
+        .collection('usuarios')
+        .where('email', '==', email)
+        .where('password', '==', password)
+        .get()
+
+      if (!snapshot.empty) {
+        const userDoc = snapshot.docs[0]
+        const userData = { id: userDoc.id, ...userDoc.data() }
+
+        updateUser({
+          id: userData.id,
+          name: userData.name,
+          email: userData.email,
+          password: userData.password,
+          avatar: userData.avatar || null,
+          products: userData.products || [],
+          cart: userData.cart || [],
+          orders: userData.orders || [],
+          favorites: userData.favorites || [],
+          address: userData.address || [],
+          phone: userData.phone || '',
+          role: userData.role || 'user',
+          token: userData.token || '',
+        })
+
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: 'Home' }],
+          })
+        )
+      } else {
+        Alert.alert(
+          'Error al iniciar sesión',
+          'Email o contraseña incorrectos.'
+        )
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error)
+      Alert.alert(
+        'Error al iniciar sesión',
+        'Ocurrió un error al intentar iniciar sesión. Por favor, intenta de nuevo.'
+      )
+    }
   }
 
   const handleCreateAccount = () => {
