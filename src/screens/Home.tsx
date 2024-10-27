@@ -1,7 +1,4 @@
-import {
-  CommonActions,
-  useFocusEffect,
-} from '@react-navigation/native'
+import { CommonActions, useFocusEffect } from '@react-navigation/native'
 import React, { useCallback, useState } from 'react'
 import { View, Text, StyleSheet, BackHandler } from 'react-native'
 import RetroModal from '../components/RetroModal'
@@ -11,6 +8,7 @@ import globalStyles from '../styles/Global'
 import BottomNavBar from '../components/BottomNavBar'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ViewsParams } from '../types/ViewsParams'
+import { useUser } from '../context/UserContext'
 
 type HomeProp =
   | StackNavigationProp<ViewsParams, 'Home'>
@@ -21,10 +19,26 @@ type Props = {
 }
 
 const Home = ({ navigation }: Props) => {
+  const { updateUser } = useUser()
   const [logOut, setLogOut] = useState(false)
 
   const closeSession = (): boolean => {
     setLogOut(true)
+    updateUser({
+      id: '',
+      name: '',
+      email: '',
+      password: '',
+      avatar: null,
+      products: [],
+      cart: [],
+      orders: [],
+      favorites: [],
+      address: [],
+      phone: '',
+      role: '',
+      token: '',
+    })
     return true
   }
 
