@@ -63,10 +63,35 @@ class Firebase {
     }
   }
 
+  async getCart(userId) {
+    const userRef = this.db.collection('usuarios').doc(userId)
+    const userDoc = await userRef.get()
+
+    if (userDoc.exists) {
+      return userDoc.data().cart || []
+    } else {
+      throw new Error('El usuario no existe')
+    }
+  }
+
   removeFavorite(userId, product) {
     const userRef = this.db.collection('usuarios').doc(userId)
     return userRef.update({
       favorites: app.firestore.FieldValue.arrayRemove(product),
+    })
+  }
+
+  removeCart(userId, product) {
+    const userRef = this.db.collection('usuarios').doc(userId)
+    return userRef.update({
+      cart: app.firestore.FieldValue.arrayRemove(product),
+    })
+  }
+
+  clearCart(userId) {
+    const userRef = this.db.collection('usuarios').doc(userId)
+    return userRef.update({
+      cart: [],
     })
   }
 }

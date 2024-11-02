@@ -1,14 +1,30 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useContext } from 'react'
+import { Alert, StyleSheet, Text, View } from 'react-native'
 import RetroButton from '../RetroButton'
 import globalStyles from '../../styles/Global'
 import { NavigationProp } from '@react-navigation/native'
+import { useUser } from '../../context/UserContext'
+import { FirebaseContext } from '../../firebase'
 
 type Props = {
   navigation: NavigationProp<any>
 }
 
 const Header = ({ navigation }: Props) => {
+  const { user } = useUser()
+  const { firebase } = useContext(FirebaseContext)
+
+  const clearCart = async () => {
+    try {
+      await firebase.clearCart(user.id)
+      Alert.alert(
+        'Carrito vaciado',
+        'Tu carrito ha sido vaciado correctamente.'
+      )
+    } catch (error) {
+      console.error('Error al eliminar el carrito:', error)
+    }
+  }
   return (
     <View style={[styles.headerStyle, globalStyles.retroButton]}>
       <RetroButton onPress={() => navigation.goBack()} title="x" />
@@ -20,7 +36,7 @@ const Header = ({ navigation }: Props) => {
       >
         Tu carrito
       </Text>
-      <RetroButton title="Vaciar" />
+      <RetroButton title="Vaciar" onPress={() => clearCart()} />
     </View>
   )
 }

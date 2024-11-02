@@ -1,11 +1,30 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Cart from '../icons/Cart'
-import products from '../../utils/products'
 import globalStyles from '../../styles/Global'
+import { FirebaseContext } from '../../firebase'
+import { useUser } from '../../context/UserContext'
+import { Product } from '../../interfaces/Product'
 
 const Total = () => {
-  const totalPrice = products
+  const { firebase } = useContext(FirebaseContext)
+  const { user } = useUser()
+  const [items, setCart] = useState<Product[]>([])
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const cart = await firebase.getCart(user.id)
+        setCart(cart)
+      } catch (error) {
+        console.error('Error al obtener el carrito:', error)
+      }
+    }
+
+    fetchFavorites()
+  }, [firebase, user.id])
+
+  const totalPrice = items
     .reduce((sum, item) => {
       return (
         sum +
@@ -16,7 +35,7 @@ const Total = () => {
     }, 0)
     .toFixed(2)
 
-  const totalSavings = products
+  const totalSavings = items
     .reduce((sum, item) => {
       return item.onSale
         ? sum + ((item.oldPrice ?? 0) - item.price) * item.amountTaken
@@ -27,7 +46,7 @@ const Total = () => {
   return (
     <View style={styles.containerStyle}>
       <View style={styles.goodsStyle}>
-        <Cart cart={products} style={{ marginRight: 20 }} />
+        <Cart cart={items} style={{ marginRight: 20 }} />
       </View>
 
       <View style={styles.totalStyle}>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Text,
   View,
@@ -10,9 +10,26 @@ import {
 import RetroButton from '../RetroButton'
 import globalStyles from '../../styles/Global'
 import { Product } from '../../interfaces/Product'
-import products from '../../utils/products'
+import { useUser } from '../../context/UserContext'
+import { FirebaseContext } from '../../firebase'
 
 const Item = () => {
+  const { firebase } = useContext(FirebaseContext)
+  const { user } = useUser()
+  const [CarItems, setCart] = useState<Product[]>([])
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const cart = await firebase.getCart(user.id)
+        setCart(cart)
+      } catch (error) {
+        console.error('Error al obtener el carrito:', error)
+      }
+    }
+
+    fetchFavorites()
+  }, [firebase, user.id])
   const renderItem: ListRenderItem<Product> = ({ item, index }) => {
     const isOnSale = item.onSale
     const discountPercentage = isOnSale
@@ -26,7 +43,7 @@ const Item = () => {
     return (
       <View
         style={[
-          index + 1 === products.length
+          index + 1 === CarItems.length
             ? styles.lastItemStyle
             : styles.containerStyle,
           isOnSale && styles.onSaleStyle,
@@ -114,7 +131,7 @@ const Item = () => {
   return (
     <View style={{ flex: 4, backgroundColor: '#DCDCDC' }}>
       <FlatList
-        data={products}
+        data={CarItems}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
       />

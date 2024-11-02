@@ -30,6 +30,8 @@ import PurchaseComplete from './src/components/Loading/PurchaseComplete'
 import EditInfo from './src/components/Profileitems/EditInfo'
 import { UserProvider } from './src/context/UserContext'
 import { FirebaseContext, firebase } from './src/firebase'
+import { initMercadoPago } from '@mercadopago/sdk-react'
+initMercadoPago('TEST-c120720f-ada6-4825-ad30-812d03baecff')
 
 function App() {
   return (

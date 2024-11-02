@@ -1,39 +1,130 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
+  Linking,
 } from 'react-native'
 import RetroButton from '../../components/RetroButton'
 import globalStyles from '../../styles/Global'
-import products from '../../utils/products'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ViewsParams } from '../../types/ViewsParams'
-import PressableOpacity from '../PressableOpacity'
+import { useUser } from '../../context/UserContext'
+import { FirebaseContext } from '../../firebase'
+import { Product } from '../../interfaces/Product'
 
 type CheckoutProps = {
   navigation: StackNavigationProp<ViewsParams, 'Checkout'>
 }
 
 const Checkout = ({ navigation }: CheckoutProps) => {
-  const totalAmount = products.reduce(
+  const { firebase } = useContext(FirebaseContext)
+  const { user } = useUser()
+  const [items, setCart] = useState<Product[]>([])
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const cart = await firebase.getCart(user.id)
+        setCart(cart)
+      } catch (error) {
+        console.error('Error al obtener el carrito:', error)
+      }
+    }
+
+    fetchCart()
+  }, [])
+
+  const totalAmount = items.reduce(
     (acc, product) => acc + product.price * product.amountTaken,
     0
   )
+
+  const createPreferenceDirectly = async () => {
+    try {
+      const preference = {
+        items: items.map(product => ({
+          title: product.title,
+          quantity: product.amountTaken,
+          currency_id: 'COP',
+          unit_price: Math.round(product.price),
+        })),
+        payer: {
+          email: user.email,
+        },
+        back_urls: {
+          success: 'myapp://payment-success',
+          failure: 'myapp://payment-failure',
+          pending: 'myapp://payment-pending',
+        },
+        auto_return: 'approved',
+      }
+
+      const response = await fetch(
+        'https://api.mercadopago.com/checkout/preferences',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer TEST-7747490925284097-110123-c2eda6d7c179ee1353e63c07d6a8481a-1144020500`, // Reemplaza con tu access token de Mercado Pago
+          },
+          body: JSON.stringify(preference),
+        }
+      )
+
+      const data = await response.json()
+      if (data.id) {
+        const url = `https://sandbox.mercadopago.com.co/checkout/v1/redirect?pref_id=${data.id}`
+        Linking.openURL(url).catch(err => {
+          console.error('Failed to open URL:', err)
+          Alert.alert('Error', 'No se pudo abrir el navegador.')
+        })
+      }
+    } catch (error) {
+      console.error('Error al crear la preferencia:', error)
+      Alert.alert('Error', 'Hubo un problema al crear la preferencia.')
+    }
+  }
+
+  useEffect(() => {
+    interface DeepLinkEvent {
+      url: string
+    }
+
+    const handleDeepLink = (event: DeepLinkEvent) => {
+      const url = event.url
+      if (url.includes('payment-success')) {
+        Alert.alert('Pago Exitoso', '¡Gracias por tu compra!')
+      } else if (url.includes('payment-failure')) {
+        Alert.alert('Pago Fallido', 'Tu pago no fue procesado.')
+      } else if (url.includes('payment-pending')) {
+        Alert.alert('Pago Pendiente', 'Tu pago está en proceso.')
+      }
+    }
+
+    // Agregar listener de enlace
+    const linkingListener = Linking.addEventListener('url', handleDeepLink)
+
+    // Quitar listener al desmontar
+    return () => {
+      linkingListener.remove()
+    }
+  }, [])
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Resumen del Pedido</Text>
 
       <ScrollView style={styles.productsList}>
-        {products.map(product => (
+        {items.map(product => (
           <View key={product.id} style={styles.productContainer}>
             <View style={styles.productInfo}>
               <Text style={globalStyles.retroHeader}>{product.title}</Text>
               <Text style={styles.productQuantity}>
-                Cantidad: {product.stock}
+                Cantidad: {product.amountTaken}
               </Text>
             </View>
             <Text style={styles.productPrice}>
@@ -51,10 +142,9 @@ const Checkout = ({ navigation }: CheckoutProps) => {
       <View style={styles.buttonContainer}>
         <RetroButton
           title="Confirmar Pago"
-          onPress={() => {
-            navigation.navigate('PurchaseComplete')
-          }}
+          onPress={createPreferenceDirectly}
         />
+
         <TouchableOpacity onPress={() => navigation.navigate('CartShop')}>
           <Text style={styles.backToShopText}>Volver a la Tienda</Text>
         </TouchableOpacity>

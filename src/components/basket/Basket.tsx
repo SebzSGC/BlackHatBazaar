@@ -1,12 +1,30 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import globalStyles from '../../styles/Global'
-import products from '../../utils/products'
+import { FirebaseContext } from '../../firebase'
+import { useUser } from '../../context/UserContext'
+import { Product } from '../../interfaces/Product'
 
 const Basket = () => {
+  const { firebase } = useContext(FirebaseContext)
+  const { user } = useUser()
+  const [Cart, setCart] = useState<Product[]>([])
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const cart = await firebase.getCart(user.id)
+        setCart(cart)
+      } catch (error) {
+        console.error('Error al obtener el carrito:', error)
+      }
+    }
+
+    fetchFavorites()
+  }, [firebase, user.id])
   return (
     <View>
-      {products.map(item => {
+      {Cart.map(item => {
         return (
           <View key={item.id} style={styles.basketContainerStyle}>
             <Text style={globalStyles.retroMessage}>{item.title}</Text>

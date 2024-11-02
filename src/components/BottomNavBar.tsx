@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import { View, Text, Keyboard } from 'react-native'
 import { NavigationProp } from '@react-navigation/native'
 import LookUp from './icons/LookUp'
@@ -6,8 +6,10 @@ import Chest from './icons/Chest'
 import Cart from './icons/Cart'
 import { TextInput } from 'react-native-gesture-handler'
 import globalStyles from '../styles/Global'
-import products from '../utils/products'
 import PressableOpacity from './PressableOpacity'
+import { useUser } from '../context/UserContext'
+import { FirebaseContext } from '../firebase'
+import { Product } from '../interfaces/Product'
 
 type BottomNavBarProps = {
   navigation: NavigationProp<any>
@@ -17,6 +19,22 @@ const BottomNavBar = ({ navigation }: BottomNavBarProps) => {
   const [isSearchVisible, setIsSearchVisible] = useState(false)
   const [searchText, setSearchText] = useState('')
   const searchInputRef = useRef<TextInput>(null)
+  const { firebase } = useContext(FirebaseContext)
+  const { user } = useUser()
+  const [CarItems, setCart] = useState<Product[]>([])
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const cart = await firebase.getCart(user.id)
+        setCart(cart)
+      } catch (error) {
+        console.error('Error al obtener el carrito:', error)
+      }
+    }
+
+    fetchFavorites()
+  }, [])
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -54,7 +72,7 @@ const BottomNavBar = ({ navigation }: BottomNavBarProps) => {
       </PressableOpacity>
       <PressableOpacity onPress={() => navigation.navigate('CartShop')}>
         <View style={globalStyles.navItem}>
-          <Cart cart={products} />
+          <Cart cart={CarItems} />
           <Text style={globalStyles.navText}>Carrito</Text>
         </View>
       </PressableOpacity>
