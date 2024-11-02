@@ -1,26 +1,122 @@
-import React, { useState } from 'react'
-import { View, Text, Image, ScrollView } from 'react-native'
+import React, { useState, useEffect, useContext } from 'react'
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Alert,
+  Platform,
+  ActivityIndicator,
+} from 'react-native'
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from '@react-native-community/datetimepicker'
+import { Picker } from '@react-native-picker/picker'
 import globalStyles from '../styles/Global'
 import RetroInput from '../components/RetroInput'
 import { NavigationProp } from '@react-navigation/native'
 import PressableOpacity from '../components/PressableOpacity'
+import { FirebaseContext } from '../firebase'
 
 type RegisterProps = {
   navigation: NavigationProp<any>
 }
 
 const Register = ({ navigation }: RegisterProps) => {
-  const [user, setUser] = useState('')
+  const { firebase } = useContext(FirebaseContext)
+
+  const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-  const [bornDate, setBornDate] = useState('')
-  const [address, setAddress] = useState('')
+  const [bornDate, setBornDate] = useState<Date | null>(null)
+  const [showDatePicker, setShowDatePicker] = useState(false)
+  const [address, setAddress] = useState({
+    street: '',
+    city: '',
+    postalCode: '',
+  })
   const [region, setRegion] = useState('')
+  const [phone, setPhone] = useState('')
+  const [avatar, setAvatar] = useState(null)
+  const [regions, setRegions] = useState<string[]>([])
+  const [loadingRegions, setLoadingRegions] = useState(true)
 
-  const handleRegister = () => {}
+  useEffect(() => {
+    const fetchRegions = async () => {
+      try {
+        const response = await fetch(
+          'https://api-colombia.com/api/v1/Department'
+        )
+        const data = await response.json()
+        setRegions(data.map((region: any) => region.name))
+        setLoadingRegions(false)
+      } catch (error) {
+        console.error('Error al obtener las regiones:', error)
+        setLoadingRegions(false)
+        Alert.alert(
+          'Error',
+          'No se pudieron cargar las regiones. Por favor, intenta más tarde.'
+        )
+      }
+    }
 
-  const handleCreateAccount = () => {
-    navigation.goBack()
+    fetchRegions()
+  }, [])
+
+  const handleRegister = async () => {
+    if (
+      !name ||
+      !password ||
+      !email ||
+      !bornDate ||
+      !address.street ||
+      !address.city ||
+      !address.postalCode ||
+      !region ||
+      !phone
+    ) {
+      Alert.alert('Error', 'Por favor, completa todos los campos.')
+      return
+    }
+
+    try {
+      await firebase.db.collection('usuarios').add({
+        name,
+        email,
+        password,
+        avatar,
+        products: [],
+        cart: [],
+        orders: [],
+        favorites: [],
+        address: [{ ...address, region }],
+        phone,
+        role: 'user',
+        token: '',
+      })
+
+      Alert.alert('Cuenta creada', 'Tu cuenta ha sido creada exitosamente.')
+      navigation.goBack()
+    } catch (error) {
+      console.error('Error al registrar usuario:', error)
+      Alert.alert(
+        'Error al registrar usuario',
+        'Ocurrió un error al intentar registrar el usuario. Por favor, intenta de nuevo.'
+      )
+    }
+  }
+
+  const handleDateChange = (
+    event: DateTimePickerEvent,
+    selectedDate?: Date
+  ) => {
+    if (event.type === 'set') {
+      const currentDate = selectedDate || bornDate
+      setShowDatePicker(Platform.OS === 'ios')
+      setBornDate(currentDate)
+    } else {
+      setShowDatePicker(false)
+    }
   }
 
   return (
@@ -33,11 +129,11 @@ const Register = ({ navigation }: RegisterProps) => {
 
         <Text style={globalStyles.retroHeader}>Crear cuenta</Text>
 
-        <Text style={globalStyles.label}>Usuario</Text>
+        <Text style={globalStyles.label}>Nombre</Text>
         <RetroInput
-          value={user}
-          onChangeText={setUser}
-          placeholder="Ingresa tu usuario"
+          value={name}
+          onChangeText={setName}
+          placeholder="Ingresa tu nombre"
         />
 
         <Text style={globalStyles.label}>Contraseña</Text>
@@ -45,6 +141,7 @@ const Register = ({ navigation }: RegisterProps) => {
           value={password}
           onChangeText={setPassword}
           placeholder="Ingresa tu contraseña"
+          secureTextEntry
         />
 
         <Text style={globalStyles.label}>Correo Electrónico</Text>
@@ -55,24 +152,65 @@ const Register = ({ navigation }: RegisterProps) => {
         />
 
         <Text style={globalStyles.label}>Fecha de nacimiento</Text>
+        <PressableOpacity onPress={() => setShowDatePicker(true)}>
+          <Text style={globalStyles.datePickerText}>
+            {bornDate
+              ? bornDate.toLocaleDateString()
+              : 'Selecciona tu fecha de nacimiento'}
+          </Text>
+        </PressableOpacity>
+        {showDatePicker && (
+          <DateTimePicker
+            value={bornDate || new Date()}
+            mode="date"
+            display="default"
+            onChange={handleDateChange}
+          />
+        )}
+
+        <Text style={globalStyles.label}>Dirección - Calle</Text>
         <RetroInput
-          value={bornDate}
-          onChangeText={setBornDate}
-          placeholder="Ingresa tu fecha de nacimiento"
+          value={address.street}
+          onChangeText={value => setAddress({ ...address, street: value })}
+          placeholder="Ingresa tu calle"
         />
 
-        <Text style={globalStyles.label}>Dirección</Text>
+        <Text style={globalStyles.label}>Dirección - Ciudad</Text>
         <RetroInput
-          value={address}
-          onChangeText={setAddress}
-          placeholder="Ingresa tu dirección"
+          value={address.city}
+          onChangeText={value => setAddress({ ...address, city: value })}
+          placeholder="Ingresa tu ciudad"
+        />
+
+        <Text style={globalStyles.label}>Código Postal</Text>
+        <RetroInput
+          value={address.postalCode}
+          onChangeText={value => setAddress({ ...address, postalCode: value })}
+          placeholder="Ingresa tu código postal"
         />
 
         <Text style={globalStyles.label}>Región</Text>
+        <View style={globalStyles.pickerContainer}>
+          {loadingRegions ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : (
+            <Picker
+              selectedValue={region}
+              onValueChange={itemValue => setRegion(itemValue)}
+            >
+              <Picker.Item label="Selecciona una región" value="" />
+              {regions.map(reg => (
+                <Picker.Item key={reg} label={reg} value={reg} />
+              ))}
+            </Picker>
+          )}
+        </View>
+
+        <Text style={globalStyles.label}>Teléfono</Text>
         <RetroInput
-          value={region}
-          onChangeText={setRegion}
-          placeholder="Ingresa tu región"
+          value={phone}
+          onChangeText={setPhone}
+          placeholder="Ingresa tu número de teléfono"
         />
 
         <PressableOpacity
@@ -83,7 +221,7 @@ const Register = ({ navigation }: RegisterProps) => {
         </PressableOpacity>
 
         <PressableOpacity
-          onPress={handleCreateAccount}
+          onPress={() => navigation.goBack()}
           style={globalStyles.formAccountContainer}
         >
           <Text style={globalStyles.retroMessage}>

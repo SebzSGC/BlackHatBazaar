@@ -1,12 +1,13 @@
-import React from 'react'
-import { View, Text, Image, FlatList, StyleSheet } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
+import { View, Text, Image, FlatList, StyleSheet, Alert } from 'react-native'
 import { Product } from '../../interfaces/Product'
-import products from '../../utils/products'
 import globalStyles from '../../styles/Global'
 import RetroButton from '../RetroButton'
 import PressableOpacity from '../PressableOpacity'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ViewsParams } from '../../types/ViewsParams'
+import { FirebaseContext } from '../../firebase'
+import { useUser } from '../../context/UserContext'
 
 type FavoriteProductsProp = StackNavigationProp<ViewsParams, 'FavoriteProducts'>
 
@@ -15,6 +16,38 @@ type Props = {
 }
 
 const FavoriteProducts = ({ navigation }: Props) => {
+  const { firebase } = useContext(FirebaseContext)
+  const { user } = useUser()
+  const [products, setProducts] = useState<Product[]>([])
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const favorites = await firebase.getFavorites(user.id)
+        setProducts(favorites)
+      } catch (error) {
+        console.error('Error al obtener productos favoritos:', error)
+      }
+    }
+
+    fetchFavorites()
+  }, [firebase, user.id])
+
+  const handleRemoveFavorite = async (product: Product) => {
+    try {
+      await firebase.removeFavorite(user.id, product)
+      setProducts(prevProducts =>
+        prevProducts.filter(item => item.id !== product.id)
+      )
+      Alert.alert(
+        'Producto eliminado',
+        'El producto ha sido eliminado de tus favoritos.'
+      )
+    } catch (error) {
+      console.error('Error al eliminar el producto de favoritos:', error)
+    }
+  }
+
   const renderItem = ({ item }: { item: Product }) => (
     <PressableOpacity opacity={false}>
       <View style={styles.productCard}>
@@ -42,7 +75,11 @@ const FavoriteProducts = ({ navigation }: Props) => {
               navigation.navigate('ProductDetail', { product: item })
             }
           />
-          <RetroButton title="Quitar" style={styles.removeButton} />
+          <RetroButton
+            title="Quitar"
+            style={styles.removeButton}
+            onPress={() => handleRemoveFavorite(item)}
+          />
         </View>
       </View>
     </PressableOpacity>

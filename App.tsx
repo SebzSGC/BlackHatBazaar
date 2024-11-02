@@ -29,112 +29,117 @@ import Checkout from './src/components/basket/Checkout'
 import PurchaseComplete from './src/components/Loading/PurchaseComplete'
 import EditInfo from './src/components/Profileitems/EditInfo'
 import { UserProvider } from './src/context/UserContext'
+import { FirebaseContext, firebase } from './src/firebase'
+import { initMercadoPago } from '@mercadopago/sdk-react'
+initMercadoPago('TEST-c120720f-ada6-4825-ad30-812d03baecff')
 
 function App() {
   return (
-    <UserProvider>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="CreateAccount"
-              component={Register}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Profile"
-              component={RetroProfile}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="ProductDetail"
-              component={ProductDetail}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Categories"
-              component={Categories}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="CartShop"
-              component={CartShop}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Tecnology"
-              component={Tecnology}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Fashion"
-              component={Fashion}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="House"
-              component={House}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Toys"
-              component={Toys}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Sport"
-              component={Sport}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="PurchasesList"
-              component={PurchasesList}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="ProfileInfo"
-              component={ProfileInfo}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="FavoriteProducts"
-              component={FavoriteProducts}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Support"
-              component={Support}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Checkout"
-              component={Checkout}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="PurchaseComplete"
-              component={PurchaseComplete}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="EditInfo"
-              component={EditInfo}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </GestureHandlerRootView>
-    </UserProvider>
+    <FirebaseContext.Provider value={{ firebase }}>
+      <UserProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="CreateAccount"
+                component={Register}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Profile"
+                component={RetroProfile}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ProductDetail"
+                component={ProductDetail}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Categories"
+                component={Categories}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="CartShop"
+                component={CartShop}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Tecnology"
+                component={Tecnology}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Fashion"
+                component={Fashion}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="House"
+                component={House}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Toys"
+                component={Toys}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Sport"
+                component={Sport}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="PurchasesList"
+                component={PurchasesList}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ProfileInfo"
+                component={ProfileInfo}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="FavoriteProducts"
+                component={FavoriteProducts}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Support"
+                component={Support}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Checkout"
+                component={Checkout}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="PurchaseComplete"
+                component={PurchaseComplete}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="EditInfo"
+                component={EditInfo}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </GestureHandlerRootView>
+      </UserProvider>
+    </FirebaseContext.Provider>
   )
 }
 

@@ -8,8 +8,15 @@ export interface User {
   cart: any[]
   orders: any[]
   favorites: any[]
-  address: any[]
+  address: adress[]
   phone: string
   role: string
   token: string
+}
+
+interface adress {
+  city: string
+  postalCode: string
+  region: string
+  street: string
 }

@@ -1,6 +1,21 @@
 import { StyleSheet } from 'react-native'
 
 const globalStyles = StyleSheet.create({
+  pickerContainer: {
+    marginVertical: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 5,
+  },
+  datePickerText: {
+    fontSize: 16,
+    color: '#000',
+    paddingVertical: 10,
+    textAlign: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
   //button styles
   retroButtonContainer: {
     flexDirection: 'row',

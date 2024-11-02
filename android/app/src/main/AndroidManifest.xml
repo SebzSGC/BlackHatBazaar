@@ -10,6 +10,7 @@
       android:allowBackup="false"
       android:theme="@style/AppTheme"
       android:supportsRtl="true">
+      android:usesCleartextTraffic="true"
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
@@ -20,6 +21,12 @@
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="myapp" android:host="payment-success" />
+            <data android:scheme="myapp" android:host="payment-failure" />
+            <data android:scheme="myapp" android:host="payment-pending" />
         </intent-filter>
       </activity>
     </application>

@@ -17,12 +17,14 @@ import globalStyles from '../styles/Global'
 import PressableOpacity from '../components/PressableOpacity'
 import purchases from '../utils/purchases'
 import { NavigationProp } from '@react-navigation/native'
+import { useUser } from '../context/UserContext'
 
 interface RetroProfileProps {
   navigation: NavigationProp<any>
 }
 
 const RetroProfile = ({ navigation }: RetroProfileProps) => {
+  const { user } = useUser()
   const booleano = false
   return (
     <View style={styles.container}>
@@ -44,7 +46,7 @@ const RetroProfile = ({ navigation }: RetroProfileProps) => {
             <View style={styles.cardIn}>
               <View>
                 <Text style={[globalStyles.retroHeader, { color: '#fff' }]}>
-                  nombre
+                  {user.name}
                 </Text>
                 <Text style={styles.cardDescription}>alias</Text>
               </View>
