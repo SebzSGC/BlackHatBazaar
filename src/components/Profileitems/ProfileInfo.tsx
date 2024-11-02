@@ -11,7 +11,6 @@ type ProfileInfoProps = {
 }
 
 const ProfileInfo = ({ navigation }: ProfileInfoProps) => {
-  // Obtenemos el usuario del contexto global
   const { user } = useUser()
 
   useEffect(() => {
@@ -38,14 +37,23 @@ const ProfileInfo = ({ navigation }: ProfileInfoProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.userInfoContainer}>
-        <Image source={{ uri: user.avatar }} style={styles.avatar} />
+        <Image
+          source={{ uri: 'https://picsum.photos/200/301' }}
+          style={styles.avatar}
+        />
         <Text style={styles.userName}>{user.name}</Text>
         <Text style={styles.userEmail}>{user.email}</Text>
       </View>
 
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitle}>Dirección de Envío</Text>
-        <Text style={styles.sectionText}>{user.address[0]}</Text>
+        <Text style={styles.sectionText}>
+          {user.address.map((address, index) => (
+            <Text key={index}>
+              {`${address.street}, ${address.city}, ${address.region}, ${address.postalCode}\n`}
+            </Text>
+          ))}
+        </Text>
       </View>
 
       <View style={styles.sectionContainer}>

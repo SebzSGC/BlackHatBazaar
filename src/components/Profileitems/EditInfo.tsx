@@ -26,8 +26,6 @@ const userReducer = (state: User, action: Action): User => {
       return { ...state, name: action.payload }
     case 'UPDATE_EMAIL':
       return { ...state, email: action.payload }
-    case 'UPDATE_ADDRESS':
-      return { ...state, address: [action.payload] }
     case 'UPDATE_PHONE':
       return { ...state, phone: action.payload }
     case 'UPDATE_AVATAR':
@@ -84,18 +82,6 @@ const EditInfo = () => {
             dispatch({ type: 'UPDATE_EMAIL', payload: text })
           }
           keyboardType="email-address"
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <Text style={globalStyles.retroHeader}>Dirección:</Text>
-        <TextInput
-          style={globalStyles.input}
-          placeholder="Dirección"
-          value={state.address[0]}
-          onChangeText={text =>
-            dispatch({ type: 'UPDATE_ADDRESS', payload: text })
-          }
         />
       </View>
 

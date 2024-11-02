@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   ScrollView,
   Animated,
   StyleSheet,
+  Alert,
 } from 'react-native'
 import RetroButton from '../components/RetroButton'
 import PressableOpacity from '../components/PressableOpacity'
@@ -15,15 +16,41 @@ import { ViewsParams } from '../types/ViewsParams'
 import { useFlipAnimation } from '../hooks/useFlipAnimation'
 import globalStyles from '../styles/Global'
 import ProductReviews from '../components/ProductReviews'
+import { FirebaseContext } from '../firebase'
+import { useUser } from '../context/UserContext'
 
 const ProductDetail = () => {
   const route = useRoute<RouteProp<ViewsParams, 'ProductDetail'>>()
+  const { user } = useUser()
+  const { firebase } = useContext(FirebaseContext)
   const { product } = route.params
 
   const { frontAnimatedStyle, backAnimatedStyle, handleFlip } =
     useFlipAnimation()
 
   const offerAnimatedValue = new Animated.Value(1)
+
+  const handleAddToCart = async () => {
+    try {
+      await firebase.updateCart(user.id, product)
+
+      Alert.alert('Éxito', 'Producto agregado al carrito correctamente.')
+    } catch (error) {
+      console.error('Error al agregar el producto al carrito:', error)
+      Alert.alert('Error', 'No se pudo agregar el producto al carrito.')
+    }
+  }
+
+  const handleAddToFavs = async () => {
+    try {
+      await firebase.updateFavs(user.id, product)
+
+      Alert.alert('Éxito', 'Producto agregado a favoritos correctamente.')
+    } catch (error) {
+      console.error('Error al agregar el producto a favoritos :', error)
+      Alert.alert('Error', 'No se pudo agregar el producto a favoritos.')
+    }
+  }
 
   useEffect(() => {
     Animated.timing(offerAnimatedValue, {
@@ -152,14 +179,17 @@ const ProductDetail = () => {
         )}
 
         <View style={styles.buttonContainer}>
-          <PressableOpacity style={styles.wishlistButton}>
+          <PressableOpacity
+            style={styles.wishlistButton}
+            onPress={() => handleAddToFavs()}
+          >
             <Text>
               <Hearth />
             </Text>
           </PressableOpacity>
           <RetroButton
             title="AGREGAR AL CARRITO"
-            onPress={() => console.log('Add to cart')}
+            onPress={() => handleAddToCart()}
           />
         </View>
       </View>
